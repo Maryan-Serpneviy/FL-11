@@ -216,40 +216,9 @@
     }
 
     /* animation */
-    /* start delay */
-    /*
-.tm-banner-text {
-    animation-name: rotate_text_y;
-    animation-duration: 5s;
-    animation-delay: 2s;
-    animation-iteration-count: infinite;
-    animation: rotate_text_x 5s 2s infinite;
-}
-
-@keyframes rotate_text_y {
-    0% {
-        opacity: 0;
-    }
-
-    5% {
-        opacity: 1;
-        transform: rotateY(0deg);
-    }
-
-    100% {
-        transform: rotateY(360deg);
-    }
-}
-*/
     /* start and iteration delay*/
 
     .tm-banner-text {
-        /*
-    animation-name: rotate_text_y;
-    animation-duration: 6s;
-    animation-delay: 2.5s;
-    animation-iteration-count: infinite;
-    */
         animation: rotate_text_y 6.5s 2.5s infinite
     }
 
