@@ -1,5 +1,351 @@
-/*
+* {
+    box-sizing: border-box;
+}
 
-write your code here
+:root {
+    --theme-color: #76cdd7;
+    --link-custom-color: #ffb347;
+    --main-color: lightskyblue;
+}
 
+@media screen {
+    /* nav */
+
+    .tm-main-nav li:hover {
+        background-color: #f5f5f5;
+    }
+
+    /* banner */
+
+    .tm-banner {
+        padding: 0;
+        border: 30px solid var(--theme-color);
+    }
+
+    .tm-banner-text {
+        letter-spacing: 5px;
+        word-spacing: 10px;
+        text-shadow:
+            0 3px 0 var(--theme-color),
+            0 12px 2px var(--theme-color);
+    }
+
+    /* box-shadow */
+
+    .tm-main-nav,
+    #home,
+    section {
+        box-shadow: 0 0 10px 0 rgba(61, 55, 61, 0.7);
+    }
+
+    /* what we do block */
+
+    .flex-2-col {
+        display: flex;
+    }
+
+    .flex-item {
+        align-self: center;
+    }
+
+    /* blue triangle */
+
+    section::before {
+        content: '';
+        border: 22px solid transparent;
+        border-left: 22px solid var(--main-color);
+        border-top: 22px solid var(--main-color);
+    }
+
+    /* gallery hover */
+
+    .boxes .box-bg:hover {
+        background-color: var(--main-color);
+    }
+
+    .boxes .box-bg:hover .tm-box-bg-title {
+        color: #fff;
+        font-weight: bold;
+    }
+
+    /* we are section */
+
+    .heading h2 {
+        text-align: center;
+        color: var(--main-color);
+    }
+
+    .heading ol {
+        list-style-type: lower-roman;
+    }
+
+    .heading ol a {
+        color: #000;
+        margin-left: 4px;
+        text-decoration: none;
+    }
+
+    .heading ol a:hover {
+        color: var(--link-custom-color);
+        font-weight: bold;
+        text-decoration: none;
+        margin-left: -5px;
+    }
+
+    .heading ol a:hover::before {
+        content: '|';
+        position: relative;
+        left: 2px;
+        bottom: 2px;
+    }
+
+    .heading ol a:visited {
+        color: var(--link-custom-color);
+    }
+
+    .heading ol a.text::after {
+        content: 'New';
+        font-variant: small-caps;
+        font-weight: bold;
+        font-size: 0.6em;
+        vertical-align: super;
+        color: #ff0000;
+    }
+
+    /* blocks */
+
+    .blocks .boxes .box {
+        padding: 10px;
+    }
+
+    .blocks .boxes .box:nth-child(even) {
+        background-color: #f5f5f5;
+    }
+
+    .blocks .boxes .box p {
+        font-style: italic;
+    }
+
+    .blocks .boxes .box p::first-letter {
+        font-size: 1.6em;
+        /* ?? */
+    }
+
+    /* how we do it */
+
+    #ideas p {
+        font-style: italic;
+    }
+
+    /* form */
+
+    .contact-form input[type=text],
+    .contact-form input[type=email],
+    .contact-form textarea,
+    .contact-form .submit-btn {
+        border-width: 2px;
+        border-style: solid;
+        border-color: var(--main-color);
+    }
+
+    .contact-form input[type=text],
+    .contact-form input[type=email] {
+        border: none;
+        border-bottom: 2px solid var(--main-color);
+    }
+
+    .contact-form textarea {
+        border-radius: 5px;
+        resize: none;
+    }
+
+    .mandatory-field::after {
+        content: '';
+        background: url(../img/email-icon.png) no-repeat;
+        background-size: 30px;
+        background-position: right;
+        top: 4px;
+        right: 3px;
+        width: 30px;
+        height: 30px;
+    }
+
+    .contact-form input[type=text]:focus,
+    .contact-form input[type=email]:focus,
+    .contact-form textarea:focus {
+        border-color: var(--theme-color);
+        background-color: var(--main-color);
+        color: #fff;
+        border-radius: 5px;
+    }
+
+    .contact-form input[type=text]:focus::placeholder,
+    .contact-form input[type=email]:focus::placeholder,
+    .contact-form textarea:focus::placeholder {
+        color: #fff;
+    }
+
+    .contact-form .submit-btn {
+        background: none;
+        color: var(--main-color);
+        float: right;
+        border-radius: 0;
+    }
+
+    .contact-form .submit-btn:hover {
+        background: var(--main-color);
+        color: #fff;
+    }
+
+    .contact-form .submit-btn:focus {
+        border-color: var(--main-color);
+        position: relative;
+        top: 1px;
+        left: 1px;
+    }
+
+    /* paragraph */
+
+    h2 + p {
+        font-style: italic;
+    }
+
+    .tm-team-description-container p {
+        text-indent: 20px;
+        line-height: 1.8;
+    }
+
+    /* animation */
+    /* start delay */
+    /*
+.tm-banner-text {
+    animation-name: rotate_text_y;
+    animation-duration: 5s;
+    animation-delay: 2s;
+    animation-iteration-count: infinite;
+    animation: rotate_text_x 5s 2s infinite;
+}
+
+@keyframes rotate_text_y {
+    0% {
+        opacity: 0;
+    }
+
+    5% {
+        opacity: 1;
+        transform: rotateY(0deg);
+    }
+
+    100% {
+        transform: rotateY(360deg);
+    }
+}
 */
+    /* start and iteration delay*/
+
+    .tm-banner-text {
+        /*
+    animation-name: rotate_text_y;
+    animation-duration: 6s;
+    animation-delay: 2.5s;
+    animation-iteration-count: infinite;
+    */
+        animation: rotate_text_y 6.5s 2.5s infinite
+    }
+
+    @keyframes rotate_text_y {
+        0% {
+            opacity: 0;
+        }
+
+        3% {
+            opacity: 1;
+            transform: rotateY(0deg);
+        }
+
+        70%,
+        100% {
+            transform: rotateY(360deg);
+        }
+    }
+}
+
+@media print {
+
+    .tm-sidebar,
+    .tm-team-img,
+    #about,
+    .boxes,
+    section:nth-of-type(5),
+    .carousel-indicators {
+        display: none;
+    }
+
+    body {
+        background-color: #fff;
+        padding: 0;
+        text-align: center;
+    }
+
+    .tm-main-content {
+        padding: 0;
+    }
+
+    .tm-content-box {
+        margin-bottom: 0;
+    }
+
+    h2 {
+        text-transform: uppercase;
+        color: var(--main-color);
+        font-weight: 300;
+        /*
+        font-size: 2.15rem;
+        */
+    }
+
+    .tm-team-description-container {
+        max-width: 100%;
+    }
+
+    .padding-medium,
+    .slide {
+        padding-top: 0;
+        padding-bottom: 20px;
+    }
+
+    /* we are list */
+
+    .heading ol {
+        list-style-type: none;
+        padding: 0 36%;
+        margin-bottom: 0;
+    }
+
+    .heading li a {
+        color: #000;
+        display: inline-block;
+    }
+
+    .heading li a::first-letter {
+        color: var(--main-color);
+        font-size: 1.8em;
+    }
+
+    .heading li:nth-child(odd) {
+        text-align: left;
+    }
+
+    .heading li:nth-child(even) {
+        text-align: right;
+    }
+
+    #ideas p {
+        margin-bottom: 5px;
+    }
+}
+
+/* ох, намучився на версії для принту з голубим кольором.
+коли верстаю і інспектор для print - відображається все як треба. як тільки беру ctrl+p той голубий колір вже не голубий О_о не рятує навіть !important
+якшо стикнетесь з такою ж проблемою - ось рішення: */
+/* -webkit-print-color-adjust: exact; */
