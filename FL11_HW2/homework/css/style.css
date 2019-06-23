@@ -174,7 +174,7 @@
     }
 
     .tm-banner-text {
-        animation: rotate_text_y 6.5s 2.5s infinite
+        animation: rotate_text_y 6.5s 2.5s infinite;
     }
 
     @keyframes rotate_text_y {
