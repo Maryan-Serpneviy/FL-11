@@ -1,0 +1,72 @@
+// Write your styles here
+// $fonts:("big": 'Source Sans Pro', "medium":'Hind',"small":'Fresca',"usual":sans-serif ); $headerTextFont: map-get($fonts , "medium" );
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.header-wrap {
+    background: url(../img/m-h-day.jpg) no-repeat 0 -100px;
+    background-size: cover;
+    height: 875px;
+    padding: 25px 192px 0 192px;
+    color: #2c2f3c;
+}
+
+.landing-logo {
+    width: 165px;
+    height: 55px;
+    margin-bottom: 5em;
+}
+
+.landing-logo img {
+    float: left;
+    padding-right: 1.1em;
+    width: 55px;
+    height: 55px;
+}
+
+.landing-logo p {
+    font-weight: 600;
+    font-size: 2em;
+    line-height: 1.2em;
+    letter-spacing: -1px;
+    font-family: 'Hind', sans-serif;
+}
+
+.landing-logo p span {
+    display: inline-block;
+    font-size: 0.45em;
+    padding-left: 1em;
+    position: relative;
+    top: -1.2em;
+}
+
+.header_heading {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 5.6em;
+    color: #2c2f3c;
+    font-weight: 700;
+    width: 6.8em;
+    line-height: 1em;
+    position: relative;
+    z-index: 10;
+}
+
+.header_heading::before {
+    content: '';
+    width: 378px;
+    height: 30px;
+    background-color: #14a0c7;
+    position: absolute;
+    z-index: -10;
+    top: 147px;
+}
+
+.header_text {
+    margin-top: 5em;
+}
