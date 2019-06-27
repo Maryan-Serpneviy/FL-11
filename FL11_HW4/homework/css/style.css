@@ -1,0 +1,252 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.clearfix {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+body {
+    background-color: #000;
+}
+
+.page-wrap {
+    width: 900px;
+    margin: 0 auto;
+    font-family: 'Open Sans';
+}
+
+.container {
+    margin: 0 38px;
+}
+
+.page-header {
+    color: #fff;
+    background-image: url('../img/sample2.jpg');
+    background-repeat: no-repeat;
+    background-size: 1120px;
+    background-position: -110px 0;
+}
+
+.header_top {
+    padding-top: 30px;
+    font-size: 0.65em;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.header_leftside {
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    align-self: flex-start;
+}
+
+.header_rightside {
+    align-self: flex-end;
+}
+
+.header_rightside #login {
+    padding-right: 40px;
+}
+
+.header_rightside span:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.header_center {
+    text-align: center;
+}
+
+.header_center-top {
+    text-transform: uppercase;
+    font-size: 2.3em;
+    letter-spacing: 0.17em;
+    padding-top: 150px
+}
+
+.header_center-top span {
+    font-size: 1.8em;
+}
+
+.header_center-bottom {
+    font-size: 0.66em;
+}
+
+.header_nav-container {
+    width: 715px;
+    margin: 130px auto 85px auto;
+}
+
+.header_nav a {
+    display: inline-block;
+    text-decoration: none;
+    color: #fff;
+    height: 41px;
+    line-height: 37px;
+    text-align: center;
+    border: 2px solid #fff;
+    font-size: 0.7em;
+}
+
+.header_nav a:nth-child(1) {
+    width: 159px;
+    margin-right: 110px;
+}
+
+.header_nav a:nth-child(2) {
+    width: 149px;
+    margin-right: 110px;
+}
+
+.header_nav a:nth-child(3) {
+    width: 175px;
+}
+
+.header_nav a:hover {
+    transition: all 0.4s ease 0.05s;
+    background: #fff;
+    color: #000;
+}
+
+.skewed-top {
+    height: 165px;
+    background-color: #000;
+    clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+
+.skewed-top p {
+    float: right;
+    width: 44.7%;
+    color: #fff;
+    margin-right: 36px;
+    font-size: 0.66em;
+}
+
+.skewed-bottom {
+    height: 165px;
+    background-color: #f3f3f3;
+    color: #000;
+    clip-path: polygon(0 0, 0 100%, 100% 100%);
+    margin-top: -165px;
+}
+
+.skewed-bottom p {
+    float: left;
+    width: 30%;
+    margin-left: 36px;
+    font-size: 0.837em;
+    margin-top: 75px;
+}
+
+/* articles */
+
+section.articles {
+    background-color: #f3f3f3;
+    padding-bottom: 40px;
+}
+
+article {
+    font-size: 0.66em;
+}
+
+.article-pic,
+.article-text {
+    margin-bottom: -28px;
+}
+
+article::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.articles h2 {
+    font-weight: 400;
+    font-size: 1.14em;
+    text-align: center;
+    padding-bottom: 25px;
+}
+
+.articles h2 b {
+    font-weight: 600;
+}
+
+.articles article {}
+
+.article-pic img {
+    min-width: 411px;
+    max-width: 411px;
+    min-height: 223px;
+    max-height: 223px;
+}
+
+.article-text p {
+    text-align: center;
+    padding-bottom: 35px;
+}
+
+.article-text p:last-child {
+    padding-bottom: 0;
+}
+
+article:nth-child(even) .article-pic,
+article:nth-child(odd) .article-text {
+    width: 49.7%;
+    float: left;
+}
+
+article:nth-child(even) .article-text,
+article:nth-child(odd) .article-pic {
+    width: 49.8%;
+    float: right;
+}
+
+article:nth-child(even) .article-text {
+    padding: 18px 3px 5px 65px
+}
+
+article:nth-child(odd) .article-text {
+    padding: 18px 65px 5px 3px;
+}
+
+.article-pic,
+.article-pic img {
+    position: relative;
+}
+
+.article-pic__likes {
+    width: 44px;
+    height: 24px;
+    line-height: 24px;
+    border: 1px solid #fff;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+    text-align: center;
+    position: relative;
+    top: -210px;
+    left: 352px;
+}
+
+.article-pic__info {
+    color: #fff;
+    position: relative;
+    top: -55px;
+    left: 15px;
+}
+
+.article-pic__info .pic-country {
+    font-weight: 600;
+}
+
+/* news */
+
+section.news {
+    background-color: #fff;
+    min-height: 352px;
+}
