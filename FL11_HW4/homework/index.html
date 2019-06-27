@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
     <title>HW4</title>
@@ -63,7 +63,10 @@
                     <article>
                         <div class="article-pic">
                             <img src="img/sample-1.jpg">
-                            <div class="article-pic__likes">154 &hearts;</div>
+                            <div class="pic_likes article-pic__likes">
+                                <span class="likes">154</span>
+                                <span class="heart"> &hearts;</span>
+                            </div>
                             <div class="article-pic__info">
                                 <span class="pic-date">July 18</span>
                                 <span class="pic-country">Spain</span>
@@ -79,7 +82,10 @@
                     <article>
                         <div class="article-pic">
                             <img src="img/sample-2.jpg">
-                            <div class="article-pic__likes">172 &hearts;</div>
+                            <div class="pic_likes article-pic__likes">
+                                <span class="likes">172</span>
+                                <span class="heart"> &hearts;</span>
+                            </div>
                             <div class="article-pic__info">
                                 <span class="pic-date">January 15</span>
                                 <span class="pic-country">South France</span>
@@ -94,11 +100,54 @@
                 </div>
             </section>
             <section class="news">
-                <div class="news__thumb">
-                    <div class="news__thumb_likes"></div>
-                    <div class="news__thumb_link"></div>
-                    <div class="news__thumb_date"></div>
+                <div class="news-container">
+                    <div class="news__thumb news__thumb1">
+                        <div class="pic_likes news__thumb_likes">
+                            <span class="likes">10</span>
+                            <span class="heart"> &hearts;</span>
+                        </div>
+                        <div class="news__thumb_link">Explore</div>
+                        <div class="news__thumb_info">
+                            <span class="pic-date">January 18</span>
+                            <span class="pic-country">Greece</span>
+                        </div>
+                    </div>
+                    <div class="news__thumb news__thumb2">
+                        <div class="pic_likes news__thumb_likes">
+                            <span class="likes">35</span>
+                            <span class="heart"> &hearts;</span>
+                        </div>
+                        <div class="news__thumb_link">Explore</div>
+                        <div class="news__thumb_info">
+                            <span class="pic-date">June 18</span>
+                            <span class="pic-country">Italy</span>
+                        </div>
+                    </div>
+                    <div class="news__thumb news__thumb3">
+                        <div class="pic_likes news__thumb_likes">
+                            <span class="likes">199</span>
+                            <span class="heart"> &hearts;</span>
+                        </div>
+                        <div class="news__thumb_link">Explore</div>
+                        <div class="news__thumb_info">
+                            <span class="pic-date">December 11</span>
+                            <span class="pic-country">USA</span>
+                        </div>
+                    </div>
+                    <div class="news__thumb news__thumb4">
+                        <div class="pic_likes news__thumb_likes">
+                            <span class="likes">88</span>
+                            <span class="heart"> &hearts;</span>
+                        </div>
+                        <div class="news__thumb_link">Explore</div>
+                        <div class="news__thumb_info">
+                            <span class="pic-date">May 25</span>
+                            <span class="pic-country">Germany</span>
+                        </div>
+                    </div>
+                    <button type="submit" name="loadnews" id="loadnews">Load news</button>
                 </div>
+
             </section>
         </main>
         <footer></footer>
