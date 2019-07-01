@@ -1,0 +1,283 @@
+:root {
+    --bg-color--dark: #0b192f;
+    --bg-color--header: #162b4d;
+    --link: #fff;
+    --link--hover: #b8b8b8;
+    --bg-footer-color: #162b4d;
+    --page-bg: #0b192f;
+}
+
+body {
+    font-family: roboto;
+    background-color: #0b192f;
+}
+
+.post-1 {
+    background: #B71757;
+}
+
+.post-2 {
+    background: #0D7E71;
+}
+
+.post-3 {
+    background: #b1660e;
+}
+
+.post-4 {
+    background: #d12767;
+}
+
+.post-5 {
+    background: #2d95bb;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* GRID */
+
+.page-grid {
+    min-height: 100%;
+    display: grid;
+    grid-template-columns: 74% 24%;
+    grid-template-rows: 120px auto;
+    grid-template-areas:
+        'header header'
+        'main sidebar'
+        'footer footer';
+    grid-gap: 25px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+@media (max-width: 1250px) {
+    .page-grid {
+        grid-template-columns: 73% 23%;
+    }
+}
+
+.page-header {
+    grid-area: header;
+}
+
+.main {
+    grid-area: main;
+}
+
+.news {
+    grid-area: sidebar;
+}
+
+.page-footer {
+    grid-area: footer;
+}
+
+/* FLEX */
+
+.post {
+    display: flex;
+}
+
+.post:nth-child(odd) .post-img,
+.post:nth-child(odd) .post-date,
+.post-desc {
+    order: -1;
+}
+
+.post-img,
+.post-desc {
+    width: 50%;
+}
+
+.news__post {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+}
+
+/* header */
+
+.page-header {
+    background-color: #162b4d;
+    height: 118px;
+    line-height: 118px;
+}
+
+.menu-icon {
+    display: none;
+}
+
+#logo {
+    font-size: 2.75em;
+    font-weight: 100;
+    float: left;
+    margin-left: 25px;
+    position: relative;
+    bottom: 5px;
+}
+
+#logo .logo-left {
+    color: #fff;
+}
+
+#logo .logo-right {
+    color: #B71757;
+    position: relative;
+    right: 12px;
+}
+
+.header__navmenu ul {
+    list-style: none;
+    margin-right: 65px;
+}
+
+.header__navmenu a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 300;
+    font-size: 1.4em;
+    float: right;
+    padding: 0 25px;
+}
+
+.header__navmenu a:hover {
+    background-color: rgba(184, 184, 184, 0.15);
+}
+
+/* post */
+
+.post {
+    color: #fff;
+    font-weight: 100;
+}
+
+.post h2 {
+    font-weight: 100;
+    font-size: 3.6em;
+    line-height: 1em;
+    padding-top: 45px;
+}
+
+.post p {
+    font-weight: 300;
+    font-size: 1.13em;
+    line-height: 1.5em;
+    opacity: 0.7;
+    padding: 25px 0;
+}
+
+.post-text {
+    width: 74.5%;
+}
+
+.post-date {
+    width: 25%;
+    opacity: 0.3;
+    padding-top: 15px;
+}
+
+.post:nth-child(odd) .post-date {
+    text-align: right;
+    padding-right: 10px;
+}
+
+.post:nth-child(even) .post-date {
+    text-align: left;
+    padding-left: 20px;
+}
+
+.post:nth-child(odd) .post-text {
+    padding-left: 45px;
+}
+
+.post:nth-child(even) .post-text {
+    padding-right: 45px;
+}
+
+.post-date .post-day {
+    font-size: 3.7em;
+}
+
+.post-date .post-month {
+    font-size: 2em;
+}
+
+.post-desc {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.post:nth-child(even) {
+    text-align: right;
+}
+
+.post-5 {
+    flex-direction: row-reverse;
+}
+
+/* sidebar */
+
+.news__post {
+    margin-bottom: 25px;
+}
+
+.news__post img {
+    max-width: 100%;
+}
+
+.post-full .post-text {
+    width: 180%;
+    padding-bottom: 45px;
+}
+
+.news__post-desc {
+    padding: 40px;
+}
+
+.news__post h3 {
+    font-weight: 300;
+    font-size: 2em;
+    line-height: 1.1em;
+    padding-bottom: 15px;
+}
+
+.news__post p {
+    font-weight: 300;
+    line-height: 1.6em;
+    font-size: 1.07em;
+    color: #677ea3;
+}
+
+/* footer */
+
+.page-footer {
+    background-color: #162b4d;
+    color: #fff;
+    font-weight: 100;
+    opacity: 0.5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 125px;
+    font-size: 1.15em;
+    line-height: 1.5em;
+    margin-bottom: 5px;
+    padding: 0 35px;
+}
+
+.footer-right {
+    line-height: 1.2em;
+}
+
+/* hovers */
+
+.post-img:hover,
+.post-desc:hover,
+.post-full .post-text:hover {
+    opacity: 0.5;
+    cursor: pointer;
+}
