@@ -10,8 +10,6 @@ let cy = (a2 + b2) / 2;
 
 if (isNaN(a1) || isNaN(a2) || isNaN(b1) || isNaN(b2) || isNaN(c1) || isNaN(c2)) {
     console.log('Error! Type integers only');
-} else if (c1 === cx && c2 === cy) {
-    console.log(true);
 } else {
-    console.log(false);
+    c1 === cx && c2 === cy ? console.log(true) : console.log(false);  
 }
