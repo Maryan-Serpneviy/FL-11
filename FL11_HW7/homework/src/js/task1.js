@@ -44,11 +44,11 @@ if (userEmail === '' || userEmail === null) {
                 break;
             } else if (userEmail === loginData[i].email && password === loginData[i].password) {
                 let passwordChange = confirm('Do you want to change your password?');
-                if (passwordChange === false) {
+                if (!passwordChange) {
                     alert(alerts.passwordChangeFail);
                     break;
                 }
-                if (passwordChange === true) {
+                if (passwordChange) {
                     let oldPassword = prompt('Enter your old password:', '');
                     if (oldPassword === '' || oldPassword === null) {
                         alert(alerts.cancel);
