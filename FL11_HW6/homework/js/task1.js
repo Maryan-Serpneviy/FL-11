@@ -1,27 +1,21 @@
 const coordinates = [
     {
-        point: 'ax',
-        varName: 'a1'
+        point: 'ax'
     },
     {
-        point: 'ay',
-        varName: 'a2'
+        point: 'ay'
     },
     {
-        point: 'bx',
-        varName: 'b1'
+        point: 'bx'
     },
     {
-        point: 'by',
-        varName: 'b2'
+        point: 'by'
     },
     {
-        point: 'cx',
-        varName: 'c1'
+        point: 'cx'
     },
     {
-        point: 'cy',
-        varName: 'c2'
+        point: 'cy'
     }
 ];
 
