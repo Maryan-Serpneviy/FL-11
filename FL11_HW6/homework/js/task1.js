@@ -1,14 +1,40 @@
-let a1 = parseFloat(prompt('ax:'));
-let a2 = parseFloat(prompt('ay:'));
-let b1 = parseFloat(prompt('bx:'));
-let b2 = parseFloat(prompt('by:'));
-let c1 = parseFloat(prompt('cx:'));
-let c2 = parseFloat(prompt('cy:'));
-let cx = (a1 + b1) / 2;
-let cy = (a2 + b2) / 2;
+const coordinates = [
+    {
+        point: 'ax',
+        varName: 'a1'
+    },
+    {
+        point: 'ay',
+        varName: 'a2'
+    },
+    {
+        point: 'bx',
+        varName: 'b1'
+    },
+    {
+        point: 'by',
+        varName: 'b2'
+    },
+    {
+        point: 'cx',
+        varName: 'c1'
+    },
+    {
+        point: 'cy',
+        varName: 'c2'
+    }
+];
 
-if (isNaN(a1) || isNaN(a2) || isNaN(b1) || isNaN(b2) || isNaN(c1) || isNaN(c2)) {
-    console.log('Error! Not all values are valid');
-} else {
-    c1 === cx && c2 === cy ? console.log(true) : console.log(false);  
+for (let i = 0; i < coordinates.length; ++i) {
+    const pointValue = parseFloat(prompt(coordinates[i].point), '');
+    if (!isFinite(pointValue) || isNaN(pointValue)) {
+        alert('Error! Value is invalid or missing');
+        break;
+    } else {
+        coordinates[i].value = pointValue;
+    }
 }
+let cx = (coordinates[0].value + coordinates[2].value) / 2;
+let cy = (coordinates[1].value + coordinates[3].value) / 2;
+
+console.log(coordinates[4].value === cx && coordinates[5].value === cy);
