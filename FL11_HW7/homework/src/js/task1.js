@@ -10,7 +10,6 @@ let loginData = [
         email: 'admin@gmail.com'
     }
 ];
-
 let alerts = {
     cancel: 'Canceled',
     noSuchUser: 'I don\'t know you',
@@ -21,11 +20,9 @@ let alerts = {
     passwordConfirmFail: 'You wrote the wrong password',
     passwordChangeSuccess: 'You have successfully changed your password'
 };
-
 const EMAIL_MIN_LENGTH = 6;
 const PASSWORD_MIN_LENGTH = 5;
 let userEmail = prompt('Enter your email:', '');
-
 if (userEmail === '' || userEmail === null) {
     alert(alerts.cancel);
 } else if (userEmail.length < EMAIL_MIN_LENGTH) {
