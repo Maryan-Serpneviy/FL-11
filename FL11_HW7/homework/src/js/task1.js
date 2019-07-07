@@ -1,4 +1,6 @@
-let loginData = [
+'use strict';
+
+const loginData = [
     {
         user: 'user',
         password: 'UserPass',
@@ -10,7 +12,7 @@ let loginData = [
         email: 'admin@gmail.com'
     }
 ];
-let alerts = {
+const alerts = {
     cancel: 'Canceled',
     noSuchUser: 'I don\'t know you',
     emailTooShort: 'I don\'t know any emails having name length less than 6 symbols',
@@ -22,7 +24,7 @@ let alerts = {
 };
 const EMAIL_MIN_LENGTH = 6;
 const PASSWORD_MIN_LENGTH = 5;
-let userEmail = prompt('Enter your email:', '');
+const userEmail = prompt('Enter your email:', '');
 if (userEmail === '' || userEmail === null) {
     alert(alerts.cancel);
 } else if (userEmail.length < EMAIL_MIN_LENGTH) {
@@ -35,18 +37,18 @@ if (userEmail === '' || userEmail === null) {
             }
             continue;
         } if (userEmail === loginData[i].email) {
-            let password = prompt('Enter password:', '');
+            const password = prompt('Enter password:', '');
             if (password === '' || password === null) {
                 alert(alerts.cancel);
                 break;
             } else if (userEmail === loginData[i].email && password === loginData[i].password) {
-                let passwordChange = confirm('Do you want to change your password?');
+                const passwordChange = confirm('Do you want to change your password?');
                 if (!passwordChange) {
                     alert(alerts.passwordChangeFail);
                     break;
                 }
                 if (passwordChange) {
-                    let oldPassword = prompt('Enter your old password:', '');
+                    const oldPassword = prompt('Enter your old password:', '');
                     if (oldPassword === '' || oldPassword === null) {
                         alert(alerts.cancel);
                         break;
@@ -54,7 +56,7 @@ if (userEmail === '' || userEmail === null) {
                         alert(alerts.wrongPassword);
                         break;
                     } else if (userEmail === loginData[i].email && oldPassword === loginData[i].password) {
-                        let newPassword = prompt('Enter your new password:', '');
+                        const newPassword = prompt('Enter your new password:', '');
                         if (newPassword === '' || newPassword === null) { // additional check
                             alert(alerts.cancel);
                             break;
@@ -62,7 +64,7 @@ if (userEmail === '' || userEmail === null) {
                             alert(alerts.passwordTooShort);
                             break;
                         } else {
-                            let newPasswordConfirm = prompt('Confirm your new password:', '');
+                            const newPasswordConfirm = prompt('Confirm your new password:', '');
                             if (newPasswordConfirm === '' || newPasswordConfirm === null) { // additional check
                                 alert(alerts.cancel);
                                 break;
@@ -83,4 +85,3 @@ if (userEmail === '' || userEmail === null) {
         }
     }
 }
- 
