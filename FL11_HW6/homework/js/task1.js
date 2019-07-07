@@ -24,9 +24,8 @@ for (let i = 0; i < coordinates.length; ++i) {
     if (!isFinite(pointValue) || isNaN(pointValue)) {
         alert('Error! Value is invalid or missing');
         break;
-    } else {
-        coordinates[i].value = pointValue;
     }
+    coordinates[i].value = pointValue;
 }
 let cx = (coordinates[0].value + coordinates[2].value) / 2;
 let cy = (coordinates[1].value + coordinates[3].value) / 2;
