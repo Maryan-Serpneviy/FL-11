@@ -30,9 +30,8 @@ for (let i = 0; i < triangleSides.length; ++i) {
     if (!isFinite(triangleSide) || isNaN(triangleSide)) {
         alert('Error! Value is invalid or missing');
         break;
-    } else {
-        triangleSides[i].value = triangleSide;
-    }
+    } 
+    triangleSides[i].value = triangleSide;
 }
 const a = triangleSides[0].value;
 const b = triangleSides[1].value;
