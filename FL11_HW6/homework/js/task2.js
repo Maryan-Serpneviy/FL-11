@@ -41,15 +41,15 @@ const c = triangleSides[2].value;
 if (a > 0 && b > 0 && c > 0) { // each side length must be more than 0
     if (a + b > c && a + c > b && b + c > a) { // check if triangle exists
         if (a === b && a === c && b === c) {
-            console.log(triangles.equivalent);
+            console.log(triangles.equivalent.value);
         } else if (a === b || a === c || b === c) {
-            console.log(triangles.isosceles);
+            console.log(triangles.isosceles.value);
         } else if (a !== b && a !== c && b !== c) {
-            console.log(triangles.normal);
+            console.log(triangles.normal.value);
         }
     } else {
-        console.log(triangles.none);
+        console.log(triangles.none.value);
     }
 } else {
-    console.log(triangles.none); // triangle doesn't exist if some side is negative
+    console.log(triangles.none.value); // triangle doesn't exist if some side is negative
 }
