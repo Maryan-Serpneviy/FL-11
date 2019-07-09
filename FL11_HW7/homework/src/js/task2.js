@@ -18,7 +18,6 @@ if (!playGame) {
     do {
         let attempts = 3;
         let randomNumber = Math.round(Math.random() * randomMaxRange);
-        console.log(randomNumber);
         do {
             let userGuess = parseInt(prompt(
                 `Choose a roulette pocket number from 0 to ${randomMaxRange}
