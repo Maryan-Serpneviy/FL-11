@@ -7,9 +7,7 @@ function pipe(num, ...funcs) {
     return num;
 }
 
-function addOne(x) {
-    return x + 1;
-}
+const addOne = x => x + 1;
 
 pipe(1, addOne);
 pipe(2, addOne, addOne);
