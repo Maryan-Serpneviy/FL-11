@@ -1,7 +1,7 @@
-function reverseNumber(num) {
-    return parseInt(num.toString().split('').reverse().join('')) * Math.sign(num);
-}
+const reverseNumber = num => parseInt(
+    num.toString().split('').reverse().join('')
+) * Math.sign(num);
 
-reverseNumber(123);
-reverseNumber(-456);
-reverseNumber(10000);
+console.log(reverseNumber(123));
+console.log(reverseNumber(-456));
+console.log(reverseNumber(10000));
