@@ -1,6 +1,4 @@
-function isInteger(num) {
-   return Number.isInteger(num);
-}
+const isInteger = num => Number.isInteger(num);
 
-isInteger(29.11);
-isInteger(29);
+console.log(isInteger(29.11));
+console.log(isInteger(29));
