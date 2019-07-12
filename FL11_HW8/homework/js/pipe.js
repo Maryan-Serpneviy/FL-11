@@ -1,6 +1,6 @@
-function pipe(num, ...funcs) {
-    for (let i = 0; i < funcs.length; i++) {
-        num = funcs[i](num);
+function pipe(num) {
+    for (let i = 1; i < arguments.length; i++) {
+        num = arguments[i](num);
     }
     return num;
 }
