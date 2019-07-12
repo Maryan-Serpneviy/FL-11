@@ -8,7 +8,6 @@ function reverseNumber(num) {
     }
     return reversedNum;
 }
-
 reverseNumber(123);
 reverseNumber(-456);
 reverseNumber(10000);
