@@ -8,6 +8,7 @@ function reverseNumber(num) {
     }
     return reversedNum;
 }
-console.log(reverseNumber(123));
-console.log(reverseNumber(-456));
-console.log(reverseNumber(10000));
+
+reverseNumber(123);
+reverseNumber(-456);
+reverseNumber(10000);

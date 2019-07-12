@@ -6,7 +6,6 @@ function getMin(...args) {
         }
     }
     return min;
-    // return Math.min(args)
 }
 
 getMin(5, 0, -1.5, 2, -1);
