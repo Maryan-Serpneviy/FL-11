@@ -7,6 +7,6 @@ function pipe(num) {
 
 const addOne = x => x + 1;
 
-console.log(pipe(1, addOne));
-console.log(pipe(2, addOne, addOne));
-console.log(pipe(3, addOne, addOne, addOne));
+pipe(1, addOne);
+pipe(2, addOne, addOne);
+pipe(3, addOne, addOne, addOne);
