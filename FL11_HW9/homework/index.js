@@ -1,17 +1,14 @@
 // 0. Write function, which returns array of numbers from string parameter.
 function getNumbers(str) {
-    /* initial solution
     const strNumbers = [];
+    const strSplit = str.split('');
     for (const i in strSplit) {
         if (!isNaN(strSplit[i])) {
             strNumbers.push(strSplit[i]);
         }
     }
+    // const strNumbers = filterArray(strSplit, elem => !isNaN(elem)); use of task 4 function
     return strNumbers;
-    */
-   const strSplit = str.split('');
-   const strNumbers = filterArray(strSplit, elem => !isNaN(elem));
-   return strNumbers;
 }
 console.log(getNumbers('string'));
 console.log(getNumbers('n1um3ber95'));
