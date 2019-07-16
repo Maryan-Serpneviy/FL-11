@@ -1,15 +1,4 @@
-Array.prototype.filterMyArray = function(callback, context) {
-    const arr = [];
-    for (let i = 0; i < this.length; i++) {
-        if (callback.call(context, this[i], i, this)) {
-            arr.push(this[i]);
-        }
-    }
-    return arr;
-};
-
 // 0. Write function, which returns array of numbers from string parameter.
-
 function getNumbers(str) {
     /* initial solution
     const strNumbers = [];
@@ -21,8 +10,7 @@ function getNumbers(str) {
     return strNumbers;
     */
    const strSplit = str.split('');
-   const strNumbers = strSplit.filterMyArray(elem => !isNaN(elem));
-   //const strNumbers = filterArray(strSplit, elem => !isNaN(elem));
+   const strNumbers = filterArray(strSplit, elem => !isNaN(elem));
    return strNumbers;
 }
 console.log(getNumbers('string'));
@@ -31,7 +19,6 @@ console.log(getNumbers('n1um3ber95'));
 // 1. Write a function that could receive different amount of parameters (n1, n2, ...n)
 // that have different data types (string, number, boolean, etc.)
 // and returns an object where keys are data types of received parameters and value are their count.
-
 function findTypes(...data) {
     const obj = {};
     for (let i = 0; i < data.length; i++) {
@@ -45,7 +32,6 @@ console.log(findTypes(null, true, 'hello'));
 console.log(findTypes({}, [], null, 'hello', 'world', function() { /**/ }, undefined, true, false));
 
 // 2. Write function, which iterates over array and executes function on each element.
-
 function executeforEach(array, callback) {
     for (let i = 0; i < array.length; i++) {
         callback(array[i]);
@@ -55,7 +41,6 @@ function executeforEach(array, callback) {
 
 // 3. Write function, which returns transformed array based on function, 
 // which passed as a parameter. Reuse function from task 2.
-
 function mapArray (array, callback) {
     const mappedArray = [];
     executeforEach(array, elem => {
@@ -67,7 +52,6 @@ function mapArray (array, callback) {
 
 // 4. Write function, which returns filtered array based on function, 
 // which passed as a parameter. Reuse function from task 2.
-
 function filterArray(array, callback) {
     const filteredArray = [];
     executeforEach(array, elem => {
@@ -81,7 +65,6 @@ function filterArray(array, callback) {
 
 // 5. Write function, which returns formatted date.
 // every month should be showed as 3 letters (e.g. Feb, Apr or Dec);
-
 function showFormattedDate(unformattedDate) {
     const monthFormatter = new Intl.DateTimeFormat('en', {month: 'short'});
     const formatted = {
@@ -95,7 +78,6 @@ console.log(showFormattedDate(new Date('2019-01-27T01:10:00'))); // returns 'Dat
 
 // 6. Write function, which returns Boolean value, 
 // is received string parameter can be converted to valid date.
-
 function canConvertToDate(dateString) {
     if (!isNaN(Date.parse(dateString))) {
         return true;
@@ -106,7 +88,6 @@ console.log(canConvertToDate('2016-13-18T00:00:00')); // false
 console.log(canConvertToDate('2016-03-18T00:00:00')); // true
 
 // 7. Write function, which returns difference between two dates in days
-
 function daysBetween(date1, date2) {
     date1 = Date.parse(date1);
     date2 = Date.parse(date2);
@@ -120,7 +101,6 @@ console.log(daysBetween(new Date('2016-03-18T00:00:00'), new Date('2016-04-19T00
 
 // 8. Write function, which returns amount of people, who are over 18. 
 // Reuse function from task 4,7
-
 const data = [
     {
       '_id': '5b5e3168c6bf40f2c1235cd6',
@@ -156,14 +136,6 @@ const data = [
     }
 ];
 
-function isOverEighteen(date) {
-    const currentYear = new Date().getFullYear();
-    const personBirthday = new Date(date).getFullYear();
-    const FULL_AGE = 18;
-    const isFirstBigger = (date1, date2) => date1 > date2;
-    return isFirstBigger(currentYear - personBirthday, FULL_AGE);
-}
-
 function getAmountOfAdultPeople(data) {
     const YEAR = 365;
     const FULL_AGE = 18;
@@ -172,15 +144,11 @@ function getAmountOfAdultPeople(data) {
     for (let i = 0; i < data.length; i++) {
         peopleAge.push(Math.round(daysBetween(today, new Date(data[i]['birthday'])) / YEAR));
     }
-    //return filterArray(birthDates, elem => isOverEighteen(elem)).length;
-    //return filterArray(peopleAge, elem => elem >= FULL_AGE).length;
-    return peopleAge.filterMyArray(elem => elem >= FULL_AGE).length;
+    return filterArray(peopleAge, elem => elem >= FULL_AGE).length;
 }
 console.log(getAmountOfAdultPeople(data));
 
 // 9. Write function, which returns array of keys of an object.
-// keys({keyOne: 1, keyTwo: 2, keyThree: 3}) // returns [“keyOne”, “keyTwo”, “keyThree”]
-
 function keys(obj) {
     const keys = [];
     for (const key in obj) {
@@ -189,13 +157,10 @@ function keys(obj) {
         }
     }
     return keys;
-    //return Object.keys(obj);
 }
 console.log(keys({keyOne: 1, keyTwo: 2, keyThree: 3}));
 
 // 10. Write function, which returns array of values of an object.
-// values({keyOne: 1, keyTwo: 2, keyThree: 3}) // returns [1, 2, 3]
-
 function values(obj) {
     const values = [];
     for (const key in obj) {
