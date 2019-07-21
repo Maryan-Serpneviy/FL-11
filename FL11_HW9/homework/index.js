@@ -1,5 +1,16 @@
+Array.prototype.filterMyArray = function(callback, context) {	
+    const arr = [];	
+    for (let i = 0; i < this.length; i++) {	
+        if (callback.call(context, this[i], i, this)) {	
+            arr.push(this[i]);	
+        }	
+    }	
+    return arr;	
+};
+
 // 0. Write function, which returns array of numbers from string parameter.
 function getNumbers(str) {
+    /*
     const strNumbers = [];
     const strSplit = str.split('');
     for (const i in strSplit) {
@@ -7,7 +18,10 @@ function getNumbers(str) {
             strNumbers.push(strSplit[i]);
         }
     }
-    // const strNumbers = filterArray(strSplit, elem => !isNaN(elem)); use of task 4 function
+    */
+    const strSplit = str.split('');
+    //const strNumbers = filterArray(strSplit, elem => !isNaN(elem)); // use task 4 function
+    const strNumbers = strSplit.filterMyArray(elem => !isNaN(elem)); // use custom prototype method
     return strNumbers;
 }
 console.log(getNumbers('string'));
@@ -34,7 +48,7 @@ function executeforEach(array, callback) {
         callback(array[i]);
     }
 }
-// executeforEach([1,2,3], el => console.log(el));
+executeforEach([1,2,3], el => console.log(el));
 
 // 3. Write function, which returns transformed array based on function, 
 // which passed as a parameter. Reuse function from task 2.
@@ -45,7 +59,7 @@ function mapArray (array, callback) {
     });
     return mappedArray;
 }
-// console.log(mapArray([2, 5, 8], el => el + 3)); // returns [5, 8, 11]
+ console.log(mapArray([2, 5, 8], el => el + 3)); // returns [5, 8, 11]
 
 // 4. Write function, which returns filtered array based on function, 
 // which passed as a parameter. Reuse function from task 2.
@@ -58,7 +72,7 @@ function filterArray(array, callback) {
     });
     return filteredArray;
 }
-// console.log(filterArray([2, 5, 8], el => el > 3)); // returns [5, 8]
+console.log(filterArray([2, 5, 8], el => el > 3)); // returns [5, 8]
 
 // 5. Write function, which returns formatted date.
 // every month should be showed as 3 letters (e.g. Feb, Apr or Dec);
@@ -141,7 +155,8 @@ function getAmountOfAdultPeople(data) {
     for (let i = 0; i < data.length; i++) {
         peopleAge.push(Math.round(daysBetween(today, new Date(data[i]['birthday'])) / YEAR));
     }
-    return filterArray(peopleAge, elem => elem >= FULL_AGE).length;
+    //return filterArray(peopleAge, elem => elem >= FULL_AGE).length; // use task 4 function
+    return peopleAge.filterMyArray(elem => elem >= FULL_AGE).length; // use custom prototype method
 }
 console.log(getAmountOfAdultPeople(data));
 
