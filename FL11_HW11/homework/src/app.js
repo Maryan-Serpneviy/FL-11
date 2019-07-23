@@ -12,7 +12,7 @@ window.onload = () => {
     actionInput.focus();
 }
 
-// enable / disable plus button
+// validate input
 const btnEnabled = () => {
     btnAddBox.classList.remove('btn-disabled');
     btnAddBox.classList.add('btn-enabled');
@@ -29,21 +29,6 @@ const validInput = () => {
 };
 
 actionInput.addEventListener('keyup', validInput);
-
-// add action events
-const addAction = () => {
-    if (actionInput.value.length >= REQUIRED_LENGTH) {
-        renderAction(inputClear, inputDisable);
-    }
-};
-
-btnAddBox.addEventListener('click', addAction);
-
-actionInput.addEventListener('keydown', evt => {
-    if (evt.keyCode === ENTER_KEYCODE) {
-        addAction();
-    }
-});
 
 // generate action from template
 const taskTemplate = () =>
@@ -76,6 +61,12 @@ const renderAction = (clear, disable) => {
     disable(actionInput);
 };
 
+const inputClear = input => {
+    input.value = '';
+    input.focus();
+    btnDisabled();
+};
+
 const inputDisable = input => {
     if (MAX_ACTIONS === 0) {
         input.disabled = true;
@@ -83,11 +74,20 @@ const inputDisable = input => {
     }    
 };
 
-const inputClear = input => {
-    input.value = '';
-    input.focus();
-    btnDisabled();
+// add action events
+const addAction = () => {
+    if (actionInput.value.length >= REQUIRED_LENGTH) {
+        renderAction(inputClear, inputDisable);
+    }
 };
+
+actionInput.addEventListener('keydown', evt => {
+    if (evt.keyCode === ENTER_KEYCODE) {
+        addAction();
+    }
+});
+
+btnAddBox.addEventListener('click', addAction);
 
 const addEvents = action => {
     const check = action.querySelector('#todo__check');
