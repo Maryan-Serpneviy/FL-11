@@ -61,6 +61,12 @@ const renderAction = (clear, disable) => {
     disable(actionInput);
 };
 
+const addAction = () => {
+    if (actionInput.value.length >= REQUIRED_LENGTH) {
+        renderAction(inputClear, inputDisable);
+    }
+};
+
 const inputClear = input => {
     input.value = '';
     input.focus();
@@ -75,12 +81,6 @@ const inputDisable = input => {
 };
 
 // add action events
-const addAction = () => {
-    if (actionInput.value.length >= REQUIRED_LENGTH) {
-        renderAction(inputClear, inputDisable);
-    }
-};
-
 actionInput.addEventListener('keydown', evt => {
     if (evt.keyCode === ENTER_KEYCODE) {
         addAction();
