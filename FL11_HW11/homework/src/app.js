@@ -8,6 +8,10 @@ const btnAddBox = document.querySelector('#add-box-icon');
 const actionInput = document.querySelector('#add-action');
 const overflow = document.querySelector('.items-overflow');
 
+window.onload = () => {
+    actionInput.focus();
+}
+
 // enable / disable plus button
 const btnEnabled = () => {
     btnAddBox.classList.remove('btn-disabled');
@@ -108,6 +112,7 @@ const removeAction = function() {
     } 
 };
 
+// EDIT
 const editAction = function() {
     const actionNodes = {
         action: this.parentNode,
