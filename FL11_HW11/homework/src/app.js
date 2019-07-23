@@ -113,52 +113,42 @@ const editAction = function() {
         action: this.parentNode,
         actionText: this.parentNode.children[1],
         editForm: this.parentNode.parentNode.children[1],
-        btnDel: this.parentNode.parentNode.children[2],
-        editInput: this.parentNode.parentNode.children[1].children[0]
+        editInput: this.parentNode.parentNode.children[1].children[0],
+        btnSave: this.parentNode.parentNode.children[1].children[1],
+        btnDel: this.parentNode.parentNode.children[2]   
     };
-    /*
-    const action = this.parentNode;
-    const actionText = this.parentNode.children[1]
-    const editForm = this.parentNode.parentNode.children[1];
-    const btnDel = this.parentNode.parentNode.children[2];
-    const editInput = this.parentNode.parentNode.children[1].children[0];
-    */
-
     actionNodes.action.classList.add('hidden');
     actionNodes.btnDel.classList.add('hidden');
     actionNodes.editForm.classList.remove('hidden');
 
     editInputValue(actionNodes);
-    
-    const saveAction = document.querySelectorAll('#save-icon');
-    for (let i = 0; i < saveAction.length; i++) {
-        saveAction[i].addEventListener('click', () => {
-            actionNodes.actionText.textContent = actionNodes.editInput.value;
-            actionNodes.editForm.classList.add('hidden');
-            actionNodes.action.classList.remove('hidden');
-            actionNodes.btnDel.classList.remove('hidden');
-        });
-    }
+    saveInputValue(actionNodes);
 
     return actionNodes;
 };
 
 const editInputValue = function(nodes) {
-    const editAction = document.querySelectorAll('#todo__edit');
-    for (let i = 0; i < editAction.length; i++) {
-        editAction[i].focus();
-        editAction[i].addEventListener('keydown', (evt) => {
-            if (evt.keyCode === ESC_KEYCODE) {
-                nodes.editForm.classList.add('hidden');
-                nodes.action.classList.remove('hidden');
-                nodes.btnDel.classList.remove('hidden');
-            } else if (event.keyCode === ENTER_KEYCODE) {
-                evt.preventDefault();
-                nodes.actionText.textContent = nodes.editInput.value;
-                nodes.editForm.classList.add('hidden');
-                nodes.action.classList.remove('hidden');
-                nodes.btnDel.classList.remove('hidden');
-            }
-        });
-    }    
+    nodes.editInput.focus();
+    nodes.editInput.addEventListener('keydown', (evt) => {
+        if (evt.keyCode === ESC_KEYCODE) {
+            nodes.editForm.classList.add('hidden');
+            nodes.action.classList.remove('hidden');
+            nodes.btnDel.classList.remove('hidden');
+        } else if (event.keyCode === ENTER_KEYCODE) {
+            evt.preventDefault();
+            nodes.actionText.textContent = nodes.editInput.value;
+            nodes.editForm.classList.add('hidden');
+            nodes.action.classList.remove('hidden');
+            nodes.btnDel.classList.remove('hidden');
+        }
+    });  
+};
+
+const saveInputValue = function(nodes) {
+    nodes.btnSave.addEventListener('click', () => {
+        nodes.actionText.textContent = nodes.editInput.value;
+        nodes.editForm.classList.add('hidden');
+        nodes.action.classList.remove('hidden');
+        nodes.btnDel.classList.remove('hidden');
+    });
 };
