@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Homework 11 - TODO Cat List</title>
+  <link rel="stylesheet" href="./assets/material-icons/material-icons.css">
+  <link rel="stylesheet" href="./assets/styles.css">
+</head>
+<body>
+  <div id="root">
+    <section id="todo__heading">
+      <h1>TODO List on Vanilla JS by Maryan</h1>
+      <h4 class="items-overflow hidden">Maximum of created actions reached. Remove some task to add a new one.</h4>
+      <div class="todo__add-form">
+        <input id="add-action" type="text" placeholder="Add new action" required>
+        <i id="add-box-icon" class="material-icons btn-disabled">add_box</i>
+      </div>
+    </section>
+    <hr>
+    <section id="todo__list">
+      <h2 hidden>TODO Template</h2>
+    </section>
+  </div>
+  <script src="./src/app.js"></script>
+</body>
+</html>
