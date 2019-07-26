@@ -101,6 +101,7 @@ const addEvents = action => {
 const checkAction = function() {
     this.disabled = true;
     this.parentNode.children[2].removeEventListener('click', editAction);
+    this.parentNode.children[2].style.visibility = 'hidden';
 };
 
 const removeAction = function() {
@@ -134,6 +135,7 @@ const editAction = function() {
 
 const editInputValue = function(nodes) {
     nodes.editInput.focus();
+    nodes.editInput.value = nodes.actionText.textContent;
     nodes.editInput.addEventListener('keydown', (evt) => {
         if (evt.keyCode === ESC_KEYCODE) {
             nodes.editForm.classList.add('hidden');
