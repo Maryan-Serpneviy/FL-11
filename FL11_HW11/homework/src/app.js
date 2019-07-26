@@ -1,15 +1,18 @@
 'use strict';
 
 let MAX_ACTIONS = 10;
-const REQUIRED_LENGTH = 1;
+const REQUIRED_LENGTH = 6;
 const ESC_KEYCODE = 27;
 const ENTER_KEYCODE = 13;
 const btnAddBox = document.querySelector('#add-box-icon');
 const actionInput = document.querySelector('#add-action');
 const overflow = document.querySelector('.items-overflow');
+const actionContainer = document.querySelector('#todo__list');
 
 window.onload = () => {
     actionInput.focus();
+    restoreActions();
+    inputDisable(actionInput);
 }
 
 // validate input
@@ -44,13 +47,13 @@ const taskTemplate = () =>
 <i id="delete-icon" class="material-icons icon">delete</i>`;
 
 const renderAction = (clear, disable) => {
-    const actionContainer = document.querySelector('#todo__list');
     if (MAX_ACTIONS > 0) {
         const actionItem = document.createElement('div');
         actionItem.classList.add('todo-item');
         actionItem.innerHTML = taskTemplate();
-        actionContainer.appendChild(actionItem);
         addEvents(actionItem);
+        actionContainer.appendChild(actionItem);
+        storeActions();
     } else {
         overflow.classList.remove('hidden');
         actionInput.disabled = true;
@@ -76,6 +79,7 @@ const inputClear = input => {
 const inputDisable = input => {
     if (MAX_ACTIONS === 0) {
         input.disabled = true;
+        input.checked = true;
         overflow.classList.remove('hidden');
     }    
 };
@@ -99,8 +103,11 @@ const addEvents = action => {
 };
 
 const checkAction = function() {
-    this.disabled = true;
+    this.setAttribute('checked', true);
+    this.setAttribute('disabled', true);
     this.parentNode.children[2].removeEventListener('click', editAction);
+    this.parentNode.children[2].style.visibility = 'hidden';
+    storeActions();
 };
 
 const removeAction = function() {
@@ -109,7 +116,8 @@ const removeAction = function() {
     overflow.classList.add('hidden');
     if (MAX_ACTIONS > 0) {
         actionInput.disabled = false;
-    } 
+    }
+    storeActions();
 };
 
 // EDIT
@@ -134,6 +142,7 @@ const editAction = function() {
 
 const editInputValue = function(nodes) {
     nodes.editInput.focus();
+    nodes.editInput.value = nodes.actionText.textContent;
     nodes.editInput.addEventListener('keydown', (evt) => {
         if (evt.keyCode === ESC_KEYCODE) {
             nodes.editForm.classList.add('hidden');
@@ -145,6 +154,7 @@ const editInputValue = function(nodes) {
             nodes.editForm.classList.add('hidden');
             nodes.action.classList.remove('hidden');
             nodes.btnDel.classList.remove('hidden');
+            storeActions();
         }
     });  
 };
@@ -155,5 +165,37 @@ const saveInputValue = function(nodes) {
         nodes.editForm.classList.add('hidden');
         nodes.action.classList.remove('hidden');
         nodes.btnDel.classList.remove('hidden');
+        storeActions();
+    });
+};
+
+// localStorage 
+function storeActions() {
+    const list = actionContainer.innerHTML;
+    localStorage.setItem('list', list);
+}
+
+const restoreActions = function() {
+    if (localStorage.getItem('list')) {
+        actionContainer.innerHTML = localStorage.getItem('list');
+    }
+    const storedActions = actionContainer.querySelectorAll('.todo-item').length;
+    MAX_ACTIONS = MAX_ACTIONS - storedActions;
+    const check = actionContainer.querySelectorAll('#todo__check');
+    const btnDel = actionContainer.querySelectorAll('#delete-icon');
+    const btnEdit = actionContainer.querySelectorAll('#edit-icon');
+    
+    listenStoredActions({check, btnDel, btnEdit});
+};
+
+const listenStoredActions = function(elems) {
+    Array.from(elems.check).forEach(elem => {
+        elem.addEventListener('click', checkAction);
+    });
+    Array.from(elems.btnDel).forEach(elem => {
+        elem.addEventListener('click', removeAction);
+    });
+    Array.from(elems.btnEdit).forEach(elem => {
+        elem.addEventListener('click', editAction);
     });
 };
