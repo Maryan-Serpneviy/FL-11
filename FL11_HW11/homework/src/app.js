@@ -1,7 +1,7 @@
 'use strict';
 
 let MAX_ACTIONS = 10;
-const REQUIRED_LENGTH = 1;
+const REQUIRED_LENGTH = 6;
 const ESC_KEYCODE = 27;
 const ENTER_KEYCODE = 13;
 const btnAddBox = document.querySelector('#add-box-icon');
