@@ -26,12 +26,12 @@ const btnDisabled = () => {
     btnAddBox.classList.add('btn-disabled');
 };
 
-const validInput = () => {
+const validateInput = () => {
     const CURRENT_LENGTH = actionInput.value.length;
     CURRENT_LENGTH >= REQUIRED_LENGTH ? btnEnabled() : btnDisabled();
 };
 
-actionInput.addEventListener('keyup', validInput);
+actionInput.addEventListener('keyup', validateInput);
 
 // generate action from template
 const taskTemplate = () =>
@@ -41,7 +41,7 @@ const taskTemplate = () =>
   <i id="edit-icon" class="material-icons icon">edit</i>
 </div>
 <form class="edit-form hidden">
-    <input id="todo__edit" type="text">
+    <input id="todo__edit" type="text" autocomplete="off">
     <i id="save-icon" class="material-icons icon">save</i>
 </form>
 <i id="delete-icon" class="material-icons icon">delete</i>`;
@@ -140,7 +140,7 @@ const editAction = function() {
     return actionNodes;
 };
 
-const editInputValue = function(nodes) {
+const editInputValue = nodes => {
     nodes.editInput.focus();
     nodes.editInput.value = nodes.actionText.textContent;
     nodes.editInput.addEventListener('keydown', (evt) => {
@@ -159,7 +159,7 @@ const editInputValue = function(nodes) {
     });  
 };
 
-const saveInputValue = function(nodes) {
+const saveInputValue = nodes => {
     nodes.btnSave.addEventListener('click', () => {
         nodes.actionText.textContent = nodes.editInput.value;
         nodes.editForm.classList.add('hidden');
@@ -170,12 +170,12 @@ const saveInputValue = function(nodes) {
 };
 
 // localStorage 
-function storeActions() {
+const storeActions = () => {
     const list = actionContainer.innerHTML;
     localStorage.setItem('list', list);
-}
+};
 
-const restoreActions = function() {
+const restoreActions = () => {
     if (localStorage.getItem('list')) {
         actionContainer.innerHTML = localStorage.getItem('list');
     }
@@ -188,7 +188,7 @@ const restoreActions = function() {
     listenStoredActions({check, btnDel, btnEdit});
 };
 
-const listenStoredActions = function(elems) {
+const listenStoredActions = elems => {
     Array.from(elems.check).forEach(elem => {
         elem.addEventListener('click', checkAction);
     });
