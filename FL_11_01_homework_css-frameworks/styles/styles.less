@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'mixins';
 
 body {
     font-family: Helvetica, sans-serif;
@@ -11,18 +12,6 @@ img {
 
 .navbar {
     padding: 0;
-}
-
-.nav {
-    &-item {
-        letter-spacing: -0.03em;
-    }
-    &-item:hover {
-        background-color: @blue;
-    }
-    &-item:hover &-link {
-        color: #FFF !important;
-    }
 }
 
 #top {
@@ -39,6 +28,45 @@ img {
 
 .main__description {
     font-weight: normal;
+}
+
+.nav {
+    &-item {
+        letter-spacing: -0.03em;
+    }
+    &-item:hover {
+        background-color: @blue;
+    }
+    &-item:hover &-link {
+        color: #FFF !important;
+    }
+}
+
+.card {
+    &-1 {
+        .colorize(@red);
+        &:hover {
+            .darken(@red);
+        }
+    }
+    &-2 {
+        .colorize(@blue);
+        &:hover {
+            .darken(@blue);
+        }
+    }
+    &-3 {
+        .colorize(@orange);
+        &:hover {
+            .darken(@orange);
+        }
+    }
+    &-4 {
+        .colorize(@green);
+        &:hover {
+            .darken(@green);
+        }
+    }
 }
 
 .page-footer {
