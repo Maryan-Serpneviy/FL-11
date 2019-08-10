@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CSS Frameworks</title>
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <link rel="stylesheet/less" type="text/css" href="styles/styles.less">
+    <script src="js/less.min.js"></script>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="bg-light border-bottom" id="top"></div>
+    <div class="container">
+        <header class="page-header">
+            <div class="row bg-light border-bottom">
+                <div class="col-lg-12">
+                    <nav class="navbar navbar-expand-md navbar-light bg-light">
+                        <a href="#">
+                            <img class="nav__logo" src="img/logo.png" alt="logo" title="Main page">                                
+                        </a>
+                        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbar">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbar">
+                            <ul class="navbar-nav ml-3">
+                                <li class="nav-item py-2 px-2"><a class="nav-link" href="#">Classes</a></li>
+                                <li class="nav-item py-2 px-2"><a class="nav-link" href="#">About us</a></li>
+                                <li class="nav-item py-2 px-2"><a class="nav-link" href="#">Contacts</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <main>
+            <section class="main">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="heading pt-4 pb-2 border-bottom">Yoga Pilates</h1>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-lg-8 col-md-12">
+                        <img class="main__photo" src="img/yoga.jpg" alt="yoga">
+                    </div>
+                    <div class="main__description col-lg-4 mt-4">
+                        <h2 class="heading h3 main__heading">Class description</h2>
+                        <p class="main__paragraph">
+                            This workout uses a series of exercise routines designed to increase your core strength & improve your posture, energy, & flexibility. Pilates work is powered by breath, flow, & centering. By focusing on the mind-body connection & using more efficient form, this workout helps develop a stronger, leaner, healthier body. Appropriate for all fitness levels.
+                        </p>
+                        <ul class="main__list ml-2">
+                            <li class="main__list-item">One Personal Trainer</li>
+                            <li class="main__list-item">Big gym space for training</li>
+                            <li class="main__list-item">Free tools & props</li>
+                            <li class="main__list-item">Free locker</li>
+                            <li class="main__list-item">Free before / after shower</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section class="related">
+                <div class="row">
+                    <div class="col-lg-12 mt-5">
+                        <h2 class="heading h3 pb-2 border-bottom">Related classes</h2>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6 col-sm-6 col-md-3">
+                        <a href="#" class="card card-1 text-center text-white rounded-0">
+                            <img class="card__photo" src="img/cardio-kickbox.jpg" alt="cardio kickboxing">
+                            <div class="card-footer">Cardio kickboxing</div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-3">
+                        <a href="#" class="card card-2 text-center text-white rounded-0">
+                            <img class="card__photo" src="img/fitness.jpg" alt="fitness">
+                            <div class="card-footer">Fitness xpress</div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-3">
+                        <a href="#" class="card card-3 text-center text-white rounded-0">
+                            <img class="card__photo" src="img/zumba.jpg" alt="zumba">
+                            <div class="card-footer">Zumba</div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-3">
+                        <a href="#" class="card card-4 text-center text-white rounded-0">
+                            <img class="card__photo" src="img/bootcamp.jpg" alt="bootcamp">
+                            <div class="card-footer">Bootcamp</div>
+                        </a>
+                    </div>
+                </div>           
+            </section>
+        </main>
+        <footer class="page-footer mt-4">
+            <div class="footer-copyright text-white px-4 py-2">&copy; Epam Front-end Lab, 2019</div>
+        </footer>
+    </div>  
+</body>
+</html>
