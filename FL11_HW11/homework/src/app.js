@@ -2,8 +2,6 @@
 
 let MAX_ACTIONS = 10;
 const REQUIRED_LENGTH = 6;
-const ESC_KEYCODE = 27;
-const ENTER_KEYCODE = 13;
 const btnAddBox = document.querySelector('#add-box-icon');
 const actionInput = document.querySelector('#add-action');
 const overflow = document.querySelector('.items-overflow');
@@ -13,7 +11,7 @@ window.onload = () => {
     actionInput.focus();
     restoreActions();
     inputDisable(actionInput);
-}
+};
 
 // validate input
 const btnEnabled = () => {
@@ -86,7 +84,7 @@ const inputDisable = input => {
 
 // add action events
 actionInput.addEventListener('keydown', evt => {
-    if (evt.keyCode === ENTER_KEYCODE) {
+    if (evt.key === 'Enter') {
         addAction();
     }
 });
@@ -144,11 +142,11 @@ const editInputValue = nodes => {
     nodes.editInput.focus();
     nodes.editInput.value = nodes.actionText.textContent;
     nodes.editInput.addEventListener('keydown', (evt) => {
-        if (evt.keyCode === ESC_KEYCODE) {
+        if (evt.key === 'Escape') {
             nodes.editForm.classList.add('hidden');
             nodes.action.classList.remove('hidden');
             nodes.btnDel.classList.remove('hidden');
-        } else if (event.keyCode === ENTER_KEYCODE) {
+        } else if (event.key === 'Enter') {
             evt.preventDefault();
             nodes.actionText.textContent = nodes.editInput.value;
             nodes.editForm.classList.add('hidden');
@@ -185,17 +183,13 @@ const restoreActions = () => {
     const btnDel = actionContainer.querySelectorAll('#delete-icon');
     const btnEdit = actionContainer.querySelectorAll('#edit-icon');
     
-    listenStoredActions({check, btnDel, btnEdit});
+    listenStoredActions(check, checkAction);
+    listenStoredActions(btnDel, removeAction);
+    listenStoredActions(btnEdit, editAction);
 };
 
-const listenStoredActions = elems => {
-    Array.from(elems.check).forEach(elem => {
-        elem.addEventListener('click', checkAction);
-    });
-    Array.from(elems.btnDel).forEach(elem => {
-        elem.addEventListener('click', removeAction);
-    });
-    Array.from(elems.btnEdit).forEach(elem => {
-        elem.addEventListener('click', editAction);
+const listenStoredActions = (elems, fn) => {
+    Array.from(elems).forEach(elem => {
+        elem.addEventListener('click', fn);
     });
 };
