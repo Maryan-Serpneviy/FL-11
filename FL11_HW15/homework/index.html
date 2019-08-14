@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Homework 15 - OOP</title>
+</head>
+
+<body>
+    <script>
+        // 1
+        // function Hamburger(type, calories) {
+        // 6
+        function Hamburger(type, calories, secretIngredient) {
+            this.type = type;
+
+            // 2
+            // this.calories = calories;
+            this.getCalories = function() {
+                return calories;
+            }
+            this.setCalories = function(amount) {
+                calories = amount;
+            }
+
+            // 3
+            let isCheesed = false;
+            this.addCheese = function(amount) {
+                if (isCheesed) {
+                    throw new Error('Sorry, you can add cheese only once.');
+                    console.log('Sorry, you can add cheese only once.');
+                    return;
+                }
+                calories += 120;
+                isCheesed = true;
+            }
+
+            // 4
+            let tomato = 0;
+            this.addTomato = function(amount) {
+                if (bites > 1) {
+                    console.log('Sorry, you cannot add tomato');
+                }
+                if (tomato >= 2) {
+                    throw new Error('Sorry, you can add tomato only twice.');
+                    console.log('Sorry, you can add tomato only twice.');
+                    return;
+                }
+                calories += 20;
+                tomato++;
+            }
+
+            // 5
+            let isSecretIngredientAdded = false;
+            this.addSecretIngredient = function(amount) {
+                if (isSecretIngredientAdded) {
+                    throw new Error('Sorry, you can add secret ingredient only once.');
+                    console.log('Sorry, you can add secret ingredient only once.');
+                    return;
+                }
+                if (isCheesed || tomato > 0) {
+                    //throw new Error('Sorry, you can add secret ingredient only before another ingredient.');
+                    console.log('Sorry, you can add secret ingredient only before another ingredient.');
+                    return;
+                }
+                calories += 100;
+                isSecretIngredientAdded = true;
+            }
+
+            // 6
+            if (secretIngredient) {
+                this.addSecretIngredient();
+            }
+
+            // 7
+            let bites = 0;
+            this.bite = function() {
+                bites++;
+            }
+
+            // 8
+            this.info = function() {
+                let isSecret;
+                isSecretIngredientAdded ? isSecret = 'with' : isSecret = 'without';
+                
+                let cheesed;
+                isCheesed ? cheesed = 'with' : cheesed = 'without';
+
+                return `${type} hamburger: ${isSecret} secret ingredient, ${cheesed} cheese,
+with ${tomato} tomato, is bit ${bites} times. Total calories: ${calories}`;
+            }
+        }
+        const myHamburger = new Hamburger('Classic', 600);
+
+        // 2
+        // console.log(myHamburger);
+        // console.log(myHamburger.getCalories()) // 600;
+        // myHamburger.setCalories(700);
+        // console.log(myHamburger.getCalories()) // 700;
+        
+        // 3
+        // myHamburger.addCheese();
+        // console.log(myHamburger.getCalories());
+        // myHamburger.addCheese(); 
+        // 'Sorry, you can add cheese only once.'
+        // console.log(myHamburger.getCalories());
+
+        // 4
+        // myHamburger.addTomato();
+        // console.log(myHamburger.getCalories());
+        // myHamburger.addTomato();
+        // console.log(myHamburger.getCalories());
+        // myHamburger.addTomato(); 
+        // 'Sorry, you can add tomato only twice.'
+
+        // 5
+        // myHamburger.addSecretIngredient();
+        // console.log(myHamburger.getCalories());
+        // myHamburger.addSecretIngredient(); 
+        // 'Sorry, you can add secret ingredient only once.'
+
+        // myHamburger.addTomato();
+        // myHamburger.addSecretIngredient();
+        // 'Sorry, you can add secret ingredient only before another ingredient'
+
+        // 6
+        // const myHamburgerWithSecretIngredient = new Hamburger('classic', 600, true);
+        // console.log(myHamburgerWithSecretIngredient.getCalories());
+        // myHamburgerWithSecretIngredient.addSecretIngredient();
+
+        // 7
+        myHamburger.addSecretIngredient();
+        myHamburger.addTomato();
+        myHamburger.addCheese();
+        myHamburger.bite();
+        myHamburger.bite();
+        myHamburger.bite();
+        myHamburger.addTomato();
+        'Sorry, you cannot add tomato'
+
+        // 8
+        console.log(myHamburger.info());
+        `Classic hamburger: with secret ingredient, with cheese,
+        with 1 tomato, is bit 3 times. Total calories: 840`
+    </script>
+</body>
+
+</html>
