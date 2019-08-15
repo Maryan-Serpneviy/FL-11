@@ -95,12 +95,14 @@ with ${tomato} tomato, is bit ${bites} times. Total calories: ${calories}`;
         const myHamburger = new Hamburger('Classic', 600);
 
         // 2
-        // console.log(myHamburger);
-        // console.log(myHamburger.getCalories()) // 600;
-        // myHamburger.setCalories(700);
-        // console.log(myHamburger.getCalories()) // 700;
+        console.log('2');
+        console.log(myHamburger);
+        console.log(myHamburger.getCalories()) // 600;
+        myHamburger.setCalories(700);
+        console.log(myHamburger.getCalories()) // 700;
         
         // 3
+        // console.log('3');
         // myHamburger.addCheese();
         // console.log(myHamburger.getCalories());
         // myHamburger.addCheese(); 
@@ -108,6 +110,7 @@ with ${tomato} tomato, is bit ${bites} times. Total calories: ${calories}`;
         // console.log(myHamburger.getCalories());
 
         // 4
+        // console.log('4');
         // myHamburger.addTomato();
         // console.log(myHamburger.getCalories());
         // myHamburger.addTomato();
@@ -116,8 +119,9 @@ with ${tomato} tomato, is bit ${bites} times. Total calories: ${calories}`;
         // 'Sorry, you can add tomato only twice.'
 
         // 5
+        // console.log('5');
         // myHamburger.addSecretIngredient();
-        // console.log(myHamburger.getCalories());
+        // console.log(myHamburger.getCalories()); // 700
         // myHamburger.addSecretIngredient(); 
         // 'Sorry, you can add secret ingredient only once.'
 
@@ -126,11 +130,13 @@ with ${tomato} tomato, is bit ${bites} times. Total calories: ${calories}`;
         // 'Sorry, you can add secret ingredient only before another ingredient'
 
         // 6
+        // console.log('6');
         // const myHamburgerWithSecretIngredient = new Hamburger('classic', 600, true);
-        // console.log(myHamburgerWithSecretIngredient.getCalories());
+        // console.log(myHamburgerWithSecretIngredient.getCalories()); // 600
         // myHamburgerWithSecretIngredient.addSecretIngredient();
 
         // 7
+        console.log('7');
         myHamburger.addSecretIngredient();
         myHamburger.addTomato();
         myHamburger.addCheese();
@@ -141,6 +147,7 @@ with ${tomato} tomato, is bit ${bites} times. Total calories: ${calories}`;
         'Sorry, you cannot add tomato'
 
         // 8
+        console.log('8');
         console.log(myHamburger.info());
         `Classic hamburger: with secret ingredient, with cheese,
         with 1 tomato, is bit 3 times. Total calories: 840`
