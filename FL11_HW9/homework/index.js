@@ -186,7 +186,7 @@ function getAmountOfAdultPeople(data) {
         peopleAge.push(Math.round(daysBetween(today, new Date(data[i]['birthday'])) / YEAR));
     }
     //return filterArray(peopleAge, elem => elem >= FULL_AGE).length; // use task 4 function
-    return peopleAge.filterMyArray(elem => elem >= FULL_AGE).length; // use custom prototype method
+    return peopleAge.m_filter(elem => elem >= FULL_AGE).length; // use custom prototype method
 }
 console.log(getAmountOfAdultPeople(data));
 
