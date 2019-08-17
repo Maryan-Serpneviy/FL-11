@@ -1,12 +1,42 @@
-Array.prototype.filterMyArray = function(callback, context) {	
-    const arr = [];	
-    for (let i = 0; i < this.length; i++) {	
-        if (callback.call(context, this[i], i, this)) {	
-            arr.push(this[i]);	
-        }	
-    }	
-    return arr;	
-};
+// forEach() polyfill
+Array.prototype.m_forEach = function(callback) {
+    if (typeof callback !== 'function') {
+        throw TypeError(callback + ' is not a function');
+    }
+    for (var i = 0; i < this.length; i++) {
+        callback(this[i]);
+    }
+}
+const iterArr = [2,5,8];
+iterArr.m_forEach(el => console.log(el));
+
+// map() polyfill
+Array.prototype.m_map = function(callback) {
+    if (typeof callback !== 'function') {
+        throw TypeError(callback + ' is not a function');
+    }
+    var mappedArr = [];
+    for (var i = 0; i < this.length; i++) {
+        mappedArr.push(callback(this[i]));
+    }
+    return mappedArr;
+}
+console.log([2,5,8].m_map(el => el + 3));
+
+// filter() polyfill
+Array.prototype.m_filter = function(callback) {
+    if (typeof callback !== 'function') {
+        throw TypeError(callback + ' is not a function');
+    }
+    var filteredArr = [];
+    for (var i = 0; i < this.length; i++) {
+        if (callback(this[i])) {
+            filteredArr.push(this[i]);
+        }
+    }
+    return filteredArr;
+}
+console.log([2, 5, 8].m_filter(el => el > 3)); // returns [5, 8]
 
 // 0. Write function, which returns array of numbers from string parameter.
 function getNumbers(str) {
@@ -21,7 +51,7 @@ function getNumbers(str) {
     */
     const strSplit = str.split('');
     //const strNumbers = filterArray(strSplit, elem => !isNaN(elem)); // use task 4 function
-    const strNumbers = strSplit.filterMyArray(elem => !isNaN(elem)); // use custom prototype method
+    const strNumbers = strSplit.m_filter(elem => !isNaN(elem)); // use custom prototype method
     return strNumbers;
 }
 console.log(getNumbers('string'));
@@ -52,14 +82,14 @@ executeforEach([1,2,3], el => console.log(el));
 
 // 3. Write function, which returns transformed array based on function, 
 // which passed as a parameter. Reuse function from task 2.
-function mapArray (array, callback) {
+function mapArray(array, callback) {
     const mappedArray = [];
     executeforEach(array, elem => {
       mappedArray.push(callback(elem));
     });
     return mappedArray;
 }
- console.log(mapArray([2, 5, 8], el => el + 3)); // returns [5, 8, 11]
+console.log(mapArray([2, 5, 8], el => el + 3)); // returns [5, 8, 11]
 
 // 4. Write function, which returns filtered array based on function, 
 // which passed as a parameter. Reuse function from task 2.
