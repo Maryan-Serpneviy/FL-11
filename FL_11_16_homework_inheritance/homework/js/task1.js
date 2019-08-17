@@ -1,28 +1,27 @@
 // Object.assign() polyfill
 
-Object.maryankoAssign = function(target, ...objects) {
-    for (let i = 0; i < objects.length; i++) {
-        for (let prop in objects[i]) {
-            if (Object.prototype.hasOwnProperty.call(objects[i], prop)) {
-            target[prop] = objects[i][prop];
+Object.maryankoAssign = function(mergedObj) {
+    for (let i = 0; i < arguments.length; i++) {
+        if (typeof mergedObj !== 'object' || typeof arguments[i] !== 'object') {
+            throw TypeError('All arguments must be type of "object"');
+        }
+        if (arguments.length > 0) {
+            for (let prop in arguments[i]) {
+                if (Object.prototype.hasOwnProperty.call(arguments[i], prop)) {
+                mergedObj[prop] = arguments[i][prop];
+                }
             }
         }
     }
-    return target;
+    return mergedObj;
 };
-
 
 const target = { prop: 'target obj' }
 const a = { a: 1 };
 const b = { b: 2 };
 const c = { c: 3 };
-const copy = Object.maryankoAssign(target, a, b, c);
-console.log(copy);
-a.a = 100;
-console.log(copy);
 console.log(target);
-
-
-
-
-
+Object.maryankoAssign(target, a, b, c);
+a.a = 100;
+console.log(target);
+console.log(Object.maryankoAssign(5, a, b, c));
