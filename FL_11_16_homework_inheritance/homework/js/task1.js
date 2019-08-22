@@ -1,5 +1,4 @@
 // Object.assign() polyfill
-
 Object.maryankoAssign = function(mergedObj) {
     for (let i = 0; i < arguments.length; i++) {
         if (typeof arguments[i] !== 'object') {
@@ -15,7 +14,6 @@ Object.maryankoAssign = function(mergedObj) {
     }
     return mergedObj;
 };
-
 const target = { prop: 'target obj' };
 const a = { a: 1 };
 const b = { b: 2 };
