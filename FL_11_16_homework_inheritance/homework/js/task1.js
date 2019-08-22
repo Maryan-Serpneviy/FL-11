@@ -1,8 +1,7 @@
 // Object.assign() polyfill
-
 Object.maryankoAssign = function(mergedObj) {
     for (let i = 0; i < arguments.length; i++) {
-        if (typeof mergedObj !== 'object' || typeof arguments[i] !== 'object') {
+        if (typeof arguments[i] !== 'object') {
             throw TypeError('All arguments must be type of "object"');
         }
         if (arguments.length > 0) {
@@ -15,8 +14,7 @@ Object.maryankoAssign = function(mergedObj) {
     }
     return mergedObj;
 };
-
-const target = { prop: 'target obj' }
+const target = { prop: 'target obj' };
 const a = { a: 1 };
 const b = { b: 2 };
 const c = { c: 3 };
