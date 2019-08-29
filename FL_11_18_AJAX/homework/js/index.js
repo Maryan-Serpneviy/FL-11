@@ -28,26 +28,31 @@ const userTemplate = document.querySelector('#display-user-template')
 const renderUser = user => {
     const userElement = userTemplate.cloneNode(true);
 
-    const userId = userElement.querySelector('.user__id');
-    const userName = userElement.querySelector('.user__username');
-    const editUser = userElement.querySelector('#edit-icon');
-    const editForm = userElement.querySelector('.user__edit');
-    const saveUser = userElement.querySelector('#save-icon');
-    userId.textContent = `${user.id}.`;
-    userName.textContent = user.username;
-    editForm.value = userName.textContent;
+    const nodes = {
+        userId: userElement.querySelector('.user__id'),
+        userName: userElement.querySelector('.user__username'),
+        editUser: userElement.querySelector('#edit-icon'),
+        editForm: userElement.querySelector('.user__edit'),
+        saveUser: userElement.querySelector('#save-icon'),
+        deleteUser: userElement.querySelector('#delete-icon')
+    };
 
-    editUser.addEventListener('click', () => {
-        showEditForm({userName, editUser, editForm, saveUser});
+    nodes.userId.textContent = `${user.id}.`;
+    nodes.userName.textContent = user.username;
+    nodes.editForm.value = nodes.userName.textContent;
+
+    nodes.editUser.addEventListener('click', () => {
+        showEditForm(nodes);
         document.addEventListener('keydown', evt => {
             if (evt.key === 'Escape') {
-                hideEditForm({userName, editUser, editForm, saveUser});
+                hideEditForm(nodes);
             }
         });
     });
 
-    saveUser.addEventListener('click', function() {
-        // showSpinner()
+    // 3. When editing is finished update user on the server(call PUT method) 
+    nodes.saveUser.addEventListener('click', () => {
+        // showSpinner();
         fetch(`${URL}/users/${user.id}`, {
             method: 'PUT',
             headers: {
@@ -56,10 +61,30 @@ const renderUser = user => {
             body: JSON.stringify(user)
         })
         .then(update => {
-            userName.textContent = editForm.value;
-            updateHandler(update.status);
-            hideEditForm({userName, editUser, editForm, saveUser});
+            nodes.userName.textContent = nodes.editForm.value;
+            statusHandler(update.status);
+            hideEditForm(nodes);
+            console.log(update.text());
+            // hideSpinner();
         });
+    });
+
+    nodes.deleteUser.addEventListener('click', function() {
+        // showSpinner();
+        fetch(`${URL}/users/${user.id}`, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(user)
+        })
+        .then(update => {
+            nodes.userName.textContent = nodes.editForm.value;
+            statusHandler(update.status);
+            hideEditForm(nodes);
+            // hideSpinner();
+        });
+        this.parentNode.remove();
     });
     return userElement;
 };
@@ -77,6 +102,7 @@ const showEditForm = user => {
     user.editForm.classList.remove('hidden');
     user.editUser.style.display = 'none';
     user.saveUser.style.display = 'block';
+    user.deleteUser.style.display = 'block';
     user.editForm.focus();
     const editBtns = document.querySelectorAll('#edit-icon');
     editBtns.forEach(elem => {
@@ -91,12 +117,14 @@ const hideEditForm = user => {
     user.editUser.style.display = 'block';
     user.editForm.classList.add('hidden');
     user.saveUser.style.display = 'none';
+    user.deleteUser.style.display = 'none';
 };
 
-const updateHandler = status => {
+const statusHandler = (status, action) => {
     const errorBlock = document.querySelector('.download-error');
     const errorMessage = document.querySelector('.download-error__message');
-    const errorClose = document.querySelector('.download-error__close')
+    const errorClose = document.querySelector('.download-error__close');
+    let errorCloseTimeout = 10000;
     let error;
     let bgColor;
     status === 200 ? bgColor = '#28a745' : bgColor = '#dc3545';
@@ -104,6 +132,7 @@ const updateHandler = status => {
     switch (status) {
         case 200:
             error = `Record updated successfully`;
+            errorCloseTimeout = 2500;
             break;
         case 400:
             error = `Error! 400: Bad Request`;
@@ -127,10 +156,7 @@ const updateHandler = status => {
     });
     setTimeout(() => {
         errorBlock.style = 'transform: scale(0); transition: all 0.4s ease';
-    }, 3000);       
+    }, errorCloseTimeout);       
 };
 
-// 3. When editing is finished update user on the server(call PUT method) 
-const onUserEdit = () => {
-    
-};
+// 4. Add possibility to delete user DELETE /user/${id}
