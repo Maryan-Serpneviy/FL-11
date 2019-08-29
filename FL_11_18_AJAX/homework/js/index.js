@@ -52,38 +52,14 @@ const renderUser = user => {
 
     // 3. When editing is finished update user on the server(call PUT method) 
     nodes.saveUser.addEventListener('click', () => {
-        // showSpinner();
-        fetch(`${URL}/users/${user.id}`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify(user)
-        })
-        .then(update => {
-            nodes.userName.textContent = nodes.editForm.value;
-            statusHandler(update.status);
-            hideEditForm(nodes);
-            console.log(update.text());
-            // hideSpinner();
-        });
+        // showLoader();
+        updateHandler(user, nodes, 'PUT');
     });
 
+    // 4. Add possibility to delete user DELETE /user/${id}
     nodes.deleteUser.addEventListener('click', function() {
-        // showSpinner();
-        fetch(`${URL}/users/${user.id}`, {
-            method: 'DELETE',
-            headers: {
-              'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify(user)
-        })
-        .then(update => {
-            nodes.userName.textContent = nodes.editForm.value;
-            statusHandler(update.status);
-            hideEditForm(nodes);
-            // hideSpinner();
-        });
+        // showLoader();
+        updateHandler(user, nodes, 'DELETE');
         this.parentNode.remove();
     });
     return userElement;
@@ -118,6 +94,23 @@ const hideEditForm = user => {
     user.editForm.classList.add('hidden');
     user.saveUser.style.display = 'none';
     user.deleteUser.style.display = 'none';
+};
+
+const updateHandler = (elem, elemNodes, method) => {
+    fetch(`${URL}/users/${elem.id}`, {
+        method: method,
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(elem)
+    })
+    .then(update => {
+        elemNodes.userName.textContent = elemNodes.editForm.value;
+        statusHandler(update.status);
+        hideEditForm(elemNodes);
+        console.log(update);
+        // hideLoader();
+    });
 };
 
 const statusHandler = (status, action) => {
@@ -158,5 +151,3 @@ const statusHandler = (status, action) => {
         errorBlock.style = 'transform: scale(0); transition: all 0.4s ease';
     }, errorCloseTimeout);       
 };
-
-// 4. Add possibility to delete user DELETE /user/${id}
