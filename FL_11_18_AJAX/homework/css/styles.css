@@ -1,0 +1,68 @@
+body {
+    text-align: center;
+    font-family: 'Lucida Sans Unicode', sans-serif;
+}
+
+.hidden {
+    display: none;
+}
+
+#btn-fetch-data {
+    margin-bottom: 15px;
+}
+
+.user {
+    display: flex;
+    justify-content: center;
+    flex-basis: 300px;
+}
+
+.user__id {
+    padding-right: 3px;    
+    color: rgb(172, 23, 23);
+    font-weight: bold;
+}
+
+.user__username {
+    color: rgb(42, 11, 126);
+}
+
+#edit-icon, #save-icon {
+    padding-left: 5px;
+    color: rgb(177, 17, 17);
+    cursor: pointer;
+}
+
+#save-icon {
+    display: none;
+}
+
+.download-error {
+    position: absolute;
+    z-index: 11;
+    top: 0;
+    left:0;
+    right: 0;
+    font-family: Consolas;
+    font-size: 30px;
+    line-height: 35px;
+    color: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    visibility: hidden;
+    text-align: center;
+}
+/* #28a745 */
+  
+.download-error__message {
+    flex-grow: 97;
+}
+  
+.download-error__close {
+    font-family: 'monospace';
+    flex-grow: 3;
+    transform: rotate(45deg);
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+}
