@@ -2,20 +2,30 @@
 const btnFetchData = document.querySelector('#btn-fetch-data');
 const URL = 'https://jsonplaceholder.typicode.com';
 
-const getUsers = () => {
+/*
+fetch(URL)
+  .then(response => response.json())
+  .then(json => console.log(json.url))
+  .catch(error => console.error(error));
+*/
+
+const fetchData = data => {
     const users = [];
-    fetch(`${URL}/users`)
-    .then(response => response.json())
+    fetch(`${URL}/${data}`)
+    .then(response => {
+        statusHandler(response.status, 'downloaded');
+        return response.json();
+    })
     .then(data => {
         for (let user in data) {
             users.push(data[user]);
         }
-    });
+    })
     return users;
 };
 /*
 btnFetchData.addEventListener('click', () => {
-    displayUsers(getUsers());
+    displayUsers(fetchData('users'));
 });
 */
 
@@ -52,15 +62,17 @@ const renderUser = user => {
 
     // 3. When editing is finished update user on the server(call PUT method) 
     nodes.saveUser.addEventListener('click', () => {
-        // showLoader();
-        updateHandler(user, nodes, 'PUT');
+        updateHandler(user, nodes, 'PUT', 'updated');
     });
 
     // 4. Add possibility to delete user DELETE /user/${id}
     nodes.deleteUser.addEventListener('click', function() {
-        // showLoader();
-        updateHandler(user, nodes, 'DELETE');
+        updateHandler(user, nodes, 'DELETE', 'removed');
         this.parentNode.remove();
+    });
+
+    nodes.userName.addEventListener('click', () => {
+        alert('username');
     });
     return userElement;
 };
@@ -71,7 +83,7 @@ const displayUsers = users => {
     }, 100);
 };
 
-displayUsers(getUsers());
+displayUsers(fetchData('users'));
 
 const showEditForm = user => {
     user.userName.classList.add('hidden');
@@ -96,7 +108,8 @@ const hideEditForm = user => {
     user.deleteUser.style.display = 'none';
 };
 
-const updateHandler = (elem, elemNodes, method) => {
+const updateHandler = (elem, elemNodes, method, action) => {
+    showLoader();
     fetch(`${URL}/users/${elem.id}`, {
         method: method,
         headers: {
@@ -106,10 +119,10 @@ const updateHandler = (elem, elemNodes, method) => {
     })
     .then(update => {
         elemNodes.userName.textContent = elemNodes.editForm.value;
-        statusHandler(update.status);
+        statusHandler(update.status, action);
         hideEditForm(elemNodes);
         console.log(update);
-        // hideLoader();
+        hideLoader();
     });
 };
 
@@ -118,36 +131,45 @@ const statusHandler = (status, action) => {
     const errorMessage = document.querySelector('.download-error__message');
     const errorClose = document.querySelector('.download-error__close');
     let errorCloseTimeout = 10000;
-    let error;
+    let message;
     let bgColor;
     status === 200 ? bgColor = '#28a745' : bgColor = '#dc3545';
 
     switch (status) {
         case 200:
-            error = `Record updated successfully`;
+            message = `Data ${action} successfully`;
             errorCloseTimeout = 2500;
             break;
         case 400:
-            error = `Error! 400: Bad Request`;
+            message = `Error! 400: Bad Request`;
             break;
         case 401:
-            error = `Error! 401: User not authorized`;
+            message = `Error! 401: User not authorized`;
             break;
         case 404:
-            error = `Error! 404: Not found`;
+            message = `Error! 404: Not found`;
             break;
         case 500:
-            error = `Error! 500: Internal server error`;
+            message = `Error! 500: Internal server error`;
             break;
         default:
-            error = `Response status: ${status}`;
+            message = `Response status: ${status}`;
     }
     errorBlock.style = `visibility: visible; background-color:${bgColor};`;
-    errorMessage.textContent = error;
+    errorMessage.textContent = message;
     errorClose.addEventListener('click', () => {
         errorBlock.style = 'transform: scale(0); transition: all 0.4s ease';
     });
     setTimeout(() => {
         errorBlock.style = 'transform: scale(0); transition: all 0.4s ease';
     }, errorCloseTimeout);       
+};
+
+// 5. Show spinner on every request call
+const showLoader = () => {
+    document.querySelector('.loader').classList.remove('hidden');
+};
+
+const hideLoader = () => {
+    document.querySelector('.loader').classList.add('hidden');
 };
