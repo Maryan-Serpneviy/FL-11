@@ -56,10 +56,11 @@ const renderUser = user => {
             body: JSON.stringify(user)
         })
         .then(update => {
-            errorHandler(update.status);
-        })
+            userName.textContent = editForm.value;
+            updateHandler(update.status);
+            hideEditForm({userName, editUser, editForm, saveUser});
+        });
     });
-
     return userElement;
 };
 
@@ -77,6 +78,12 @@ const showEditForm = user => {
     user.editUser.style.display = 'none';
     user.saveUser.style.display = 'block';
     user.editForm.focus();
+    const editBtns = document.querySelectorAll('#edit-icon');
+    editBtns.forEach(elem => {
+        elem.addEventListener('mousedown', () => {
+            hideEditForm(user);
+        });
+    });
 };
 
 const hideEditForm = user => {
@@ -86,11 +93,10 @@ const hideEditForm = user => {
     user.saveUser.style.display = 'none';
 };
 
-const errorHandler = status => {
+const updateHandler = status => {
     const errorBlock = document.querySelector('.download-error');
     const errorMessage = document.querySelector('.download-error__message');
     const errorClose = document.querySelector('.download-error__close')
-
     let error;
     let bgColor;
     status === 200 ? bgColor = '#28a745' : bgColor = '#dc3545';
@@ -117,11 +123,14 @@ const errorHandler = status => {
     errorBlock.style = `visibility: visible; background-color:${bgColor};`;
     errorMessage.textContent = error;
     errorClose.addEventListener('click', () => {
-        errorBlock.style = 'transform: scale(0); transition: all 0.3s ease';
-    });            
+        errorBlock.style = 'transform: scale(0); transition: all 0.4s ease';
+    });
+    setTimeout(() => {
+        errorBlock.style = 'transform: scale(0); transition: all 0.4s ease';
+    }, 3000);       
 };
 
 // 3. When editing is finished update user on the server(call PUT method) 
-const updateUser = () => {
+const onUserEdit = () => {
     
 };
