@@ -231,6 +231,7 @@ window.addEventListener('hashchange', () => {
         document.querySelector('#users-list').innerHTML = '';
         const btnFetchData = document.querySelector('#btn-fetch-data');
         btnFetchData.addEventListener('click', renderMain);
+        
         location.reload();
     }
 });
@@ -242,7 +243,6 @@ const loadPosts = id => {
         .map(elem => ({post: elem.title, comment: elem.body}));
         displayPosts(filteredPosts);
     }, RENDER_TIMEOUT);
-    
     location.hash = '#/posts';
 };
 
@@ -267,3 +267,9 @@ const displayPosts = data => {
         location.hash = '#/main';
     });
 };
+
+const hint = document.querySelector('#hint');
+const hintHide = document.querySelector('.hint-hide');
+hintHide.addEventListener('click', () => {
+    hint.style = VANISH;
+})

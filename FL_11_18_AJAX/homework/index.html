@@ -10,6 +10,7 @@
   <title>HW 18 - AJAX</title>
 </head>
 <body>
+  <h1>AJAX app by Maryan</h1>
   <div class="download-error">
       <div class="download-error__message">Error message</div>
       <div class="download-error__close">
@@ -26,6 +27,17 @@
   </div>
   <div id="root">
     <section id="main">
+      <div id="hint">
+        <span class="hint__heading">HINT:
+        click...</span><br>
+        [GET USERS] to download data<br>
+        [USERNAME] to display user's "posts"<br>
+        [PENCIL] to modify record:<br>
+        [DISKETTE] to "update" record on server<br>
+        [TRASHCAN] to "delete" record<br>
+        if content isn't loading press F5<br>
+        <span class="hint-hide hint">OK</span>
+      </div>
       <button id="btn-fetch-data">GET USERS</button>
       <div id="users-list"></div>
       <template id="user-template">
