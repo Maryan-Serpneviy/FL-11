@@ -101,6 +101,7 @@ const displayUsers = users => {
     }, RENDER_TIMEOUT);
     btnFetchData.removeEventListener('click', renderMain);
     btnFetchData.disabled = true;
+    btnFetchData.style.backgroundColor = 'rgb(253, 231, 231)';
 };
 
 const renderMain = () => displayUsers(fetchData('users'));
@@ -210,8 +211,14 @@ const statusHandler = (status, action) => {
     }, errorCloseTimeout);       
 };
 
-const showLoader = () => document.querySelector('.loader').classList.remove('hidden');
-const hideLoader = () => document.querySelector('.loader').classList.add('hidden');
+const showLoader = () => {
+    document.querySelector('.loader').classList.remove('hidden');
+    rootNode.classList.add('hidden');
+};
+const hideLoader = () => {
+    document.querySelector('.loader').classList.add('hidden');
+    rootNode.classList.remove('hidden');
+};
 
 // hashchange and render posts
 const rootNode = document.querySelector('#root');
@@ -270,6 +277,14 @@ const displayPosts = data => {
 const hint = document.querySelector('#hint');
 const hintHide = document.querySelector('.hint-hide');
 hintHide.addEventListener('click', () => {
+    hint.style = VANISH;
+})
+
+document.addEventListener('keydown', () => {
+    hint.style = VANISH;
+});
+
+document.addEventListener('click', () => {
     hint.style = VANISH;
 })
 

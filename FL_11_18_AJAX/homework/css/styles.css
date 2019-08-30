@@ -1,5 +1,6 @@
 :root {
     --main-color: rgb(177, 17, 17);
+    --btn-hover-bg: rgb(253, 231, 231);
 }
 
 body {
@@ -13,8 +14,8 @@ body {
 
 h1 {
     color: var(--main-color);
-    margin-bottom: 0;
-    margin-top: -8px;
+    margin: 0;
+    font-size: 1.5em;
 }
 
 button {
@@ -30,7 +31,7 @@ button {
 }
 
 button:hover {
-    background-color: #f1f1f1;
+    background-color: var(--btn-hover-bg);
 }
 
 button:active {
@@ -161,4 +162,8 @@ button:active {
     cursor: pointer;
     font-weight: bold;
     letter-spacing: 1px;
+}
+
+#btn-reload {
+    margin-left: 25px;
 }
