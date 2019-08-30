@@ -1,0 +1,164 @@
+:root {
+    --main-color: rgb(177, 17, 17);
+}
+
+body {
+    text-align: center;
+    font-family: 'Lucida Sans Unicode', sans-serif;
+}
+
+.hidden {
+    display: none;
+}
+
+h1 {
+    color: var(--main-color);
+    margin-bottom: 0;
+    margin-top: -8px;
+}
+
+button {
+    margin-top: 15px;
+    padding: 5px 10px;
+    font-weight: bold;
+    background-color: #fff;
+    color: var(--main-color);
+    border: 2px solid var(--main-color);
+    outline: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #f1f1f1;
+}
+
+button:active {
+    position: relative;
+    top: 1px;
+    left: 1px;
+}
+
+#btn-fetch-data {
+    margin-bottom: 15px;
+}
+
+.user {
+    display: flex;
+    justify-content: center;
+    flex-basis: 300px;
+}
+
+.user__id {
+    padding-right: 3px;    
+    color: var(--main-color);
+    font-weight: bold;
+}
+
+.user__username {
+    color: rgb(42, 11, 126);
+    cursor: pointer;
+}
+
+#edit-icon, #save-icon, #delete-icon {
+    padding-left: 5px;
+    color: var(--main-color);
+    cursor: pointer;
+}
+
+#save-icon, #delete-icon {
+    display: none;
+}
+
+.download-error {
+    position: absolute;
+    z-index: 11;
+    top: 0;
+    left:0;
+    right: 0;
+    font-family: Consolas;
+    font-size: 30px;
+    line-height: 35px;
+    color: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    visibility: hidden;
+    text-align: center;
+}
+  
+.download-error__message {
+    flex-grow: 97;
+}
+  
+.download-error__close {
+    font-family: 'monospace';
+    flex-grow: 3;
+    transform: rotate(45deg);
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* post */ 
+
+.post-container {
+    background-color: #f1f1f1;
+    margin-top: 20px;
+    padding: 25px;
+    position: relative;
+}
+
+.user__post {
+    float: left;
+    text-decoration: underline; 
+    padding-bottom: 15px;
+}
+
+.user__comment {
+    float: right;
+    font-style: italic;
+    padding-left: 100px;
+}
+
+.post__avatar {
+    width: 100px;
+    height: 75px;
+    border-radius: 50%;
+    position: absolute;
+    top: 60px;
+    left: 20px;
+}
+
+.post-container::after, #hint::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+#hint {
+    background-color: #28a745;
+    color: #fff;
+    font-size: 12px;
+    text-align: left;
+    width: 240px;
+    padding: 8px 15px;
+    border-radius: 10px 10px 0 10px;
+    position: absolute;
+    z-index: 10;
+    left: 50px;
+    box-shadow: 10px 10px 9px -6px rgba(0,0,0,0.35);
+}
+
+.hint__heading {
+    font-weight: bold;
+    letter-spacing: 2px;
+    font-size: 16px;
+}
+
+.hint-hide {
+    text-align: right;
+    float: right;
+    cursor: pointer;
+    font-weight: bold;
+    letter-spacing: 1px;
+}

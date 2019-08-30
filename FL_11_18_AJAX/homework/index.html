@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="css/styles.css" type="text/css">
+  <link rel="stylesheet" href="css/loader.css" type="text/css">
+  <link rel="stylesheet" href="assets/material-icons/material-icons.css">
+  <title>HW 18 - AJAX</title>
+</head>
+<body>
+  <div class="download-error">
+      <div class="download-error__message">Error message</div>
+      <div class="download-error__close">
+          +
+      </div>
+  </div>
+  <div class="loader hidden">
+    <div class="l_main">
+      <div class="l_square"><span></span><span></span><span></span></div>
+      <div class="l_square"><span></span><span></span><span></span></div>
+      <div class="l_square"><span></span><span></span><span></span></div>
+      <div class="l_square"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+  <div id="root">
+    <h1>AJAX app by Maryan</h1>
+    <section id="main">
+      <div id="hint">
+        <span class="hint__heading">HINT:
+        click...</span><br>
+        [GET USERS] to download data<br>
+        [USERNAME] to display user's "posts"<br>
+        [PENCIL] to modify record:<br>
+        [DISKETTE] to "update" record on server<br>
+        [TRASHCAN] to "delete" record<br>
+        if content isn't loading press F5<br>
+        <span class="hint-hide hint">OK</span>
+      </div>
+      <button id="btn-fetch-data">GET USERS</button>
+      <div id="users-list"></div>
+      <template id="user-template">
+        <div class="user">
+          <img class="user__avatar" src="">
+          <div class="user__id"></div>
+          <div class="user__username"></div>
+          <input class="user__edit hidden" type="text">
+          <i id="save-icon" class="material-icons icon">save</i>
+          <i id="edit-icon" class="material-icons icon">edit</i>
+          <i id="delete-icon" class="material-icons icon">delete</i>
+        </div>
+      </template>
+    </section>
+    <section id="posts">
+      <template id="post-template">
+        <div class="post-container">
+          <div class="user__post">soluta aliquam aperiam consequatur illo quis voluptas</div>
+          <div class="user__comment">qui enim et consequuntur quia animi quis voluptate quibusdam</div>
+        </div>
+      </template>
+    </section>
+  </div>
+  <script src="js/index.js"></script>
+</body>
+</html>
