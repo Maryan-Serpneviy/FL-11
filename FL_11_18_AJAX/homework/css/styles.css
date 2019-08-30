@@ -25,6 +25,7 @@ body {
 
 .user__username {
     color: rgb(42, 11, 126);
+    cursor: pointer;
 }
 
 #edit-icon, #save-icon, #delete-icon {

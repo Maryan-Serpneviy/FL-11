@@ -1,27 +1,21 @@
 // 1. get userlist GET /users
 const btnFetchData = document.querySelector('#btn-fetch-data');
 const URL = 'https://jsonplaceholder.typicode.com';
+const VANISH = 'transform: scale(0); transition: all 0.4s ease';
 
-/*
-fetch(URL)
-  .then(response => response.json())
-  .then(json => console.log(json.url))
-  .catch(error => console.error(error));
-*/
-
-const fetchData = data => {
-    const users = [];
-    fetch(`${URL}/${data}`)
+const fetchData = dataType => {
+    const fetched = [];
+    fetch(`${URL}/${dataType}`)
     .then(response => {
         statusHandler(response.status, 'downloaded');
         return response.json();
     })
     .then(data => {
-        for (let user in data) {
-            users.push(data[user]);
+        for (let elem in data) {
+            fetched.push(data[elem]);
         }
     })
-    return users;
+    return fetched;
 };
 /*
 btnFetchData.addEventListener('click', () => {
@@ -67,12 +61,20 @@ const renderUser = user => {
 
     // 4. Add possibility to delete user DELETE /user/${id}
     nodes.deleteUser.addEventListener('click', function() {
-        updateHandler(user, nodes, 'DELETE', 'removed');
-        this.parentNode.remove();
+        const delRecord = confirm('Are you sure you want to DELETE this record from server?');
+        if (delRecord) {
+            hideEditForm(nodes);
+            updateHandler(user, nodes, 'DELETE', 'removed');    
+            setTimeout(() => {
+                //this.parentNode.remove();  
+                this.parentNode.style = VANISH;
+            }, 1000);
+        }
     });
 
     nodes.userName.addEventListener('click', () => {
-        alert('username');
+        console.log(fetchData('posts'));
+        
     });
     return userElement;
 };
@@ -158,10 +160,10 @@ const statusHandler = (status, action) => {
     errorBlock.style = `visibility: visible; background-color:${bgColor};`;
     errorMessage.textContent = message;
     errorClose.addEventListener('click', () => {
-        errorBlock.style = 'transform: scale(0); transition: all 0.4s ease';
+        errorBlock.style = VANISH;
     });
     setTimeout(() => {
-        errorBlock.style = 'transform: scale(0); transition: all 0.4s ease';
+        errorBlock.style = VANISH;
     }, errorCloseTimeout);       
 };
 
