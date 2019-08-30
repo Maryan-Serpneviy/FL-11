@@ -3,8 +3,15 @@
 const btnFetchData = document.querySelector('#btn-fetch-data');
 const URL = 'https://jsonplaceholder.typicode.com';
 const VANISH = 'transform: scale(0); transition: all 0.4s ease';
-const DOWNLOAD_TIMEOUT = 100;
+const RENDER_TIMEOUT = 200;
 
+window.addEventListener('DOMContentLoaded', () => {
+    location.hash = '#/main';
+    localStorage.clear();
+    btnFetchData.addEventListener('click', renderMain);
+});
+
+// promises
 const fetchData = dataType => {
     const fetched = [];
     fetch(`${URL}/${dataType}`)
@@ -19,15 +26,23 @@ const fetchData = dataType => {
     })
     return fetched;
 };
+// async/await
 /*
-btnFetchData.addEventListener('click', () => {
-    displayUsers(fetchData('users'));
-});
+async function fetchData(dataType) {
+    const fetched = [];
+    const response = await fetch(`${URL}/${dataType}`);
+    statusHandler(response.status, 'downloaded');
+    const data = await response.json();
+    for (let elem in data) {
+        fetched.push(data[elem]);
+    }
+    return fetched;
+};
 */
 const usersList = document.querySelector('#users-list');
 
 const renderUser = user => {
-    const userTemplate = document.querySelector('#display-user-template')
+    const userTemplate = document.querySelector('#user-template')
     .content
     .querySelector('.user');
     const userElement = userTemplate.cloneNode(true);
@@ -80,12 +95,17 @@ const renderUser = user => {
 };
 
 const displayUsers = users => {
+    usersList.innerHTML = '';
     setTimeout(() => {
         users.forEach(elem => usersList.appendChild(renderUser(elem)));
-    }, DOWNLOAD_TIMEOUT);
+    }, RENDER_TIMEOUT);
+    btnFetchData.removeEventListener('click', renderMain);
+    btnFetchData.disabled = true;
 };
 
-displayUsers(fetchData('users'));
+const renderMain = () => displayUsers(fetchData('users'));
+
+//displayUsers(fetchData('users'));
 
 const showEditForm = user => {
     user.userName.classList.add('hidden');
@@ -110,6 +130,9 @@ const hideEditForm = user => {
     user.deleteUser.style.display = 'none';
 };
 
+// handle remote data
+// promises
+/*
 const updateHandler = (elem, elemNodes, method, action) => {
     showLoader();
     fetch(`${URL}/users/${elem.id}`, {
@@ -127,6 +150,24 @@ const updateHandler = (elem, elemNodes, method, action) => {
         hideLoader();
     });
 };
+*/
+// async/await
+async function updateHandler(elem, elemNodes, method, action) {
+    showLoader();
+    const response = await fetch(`${URL}/users/${elem.id}`, {
+        method: method,
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(elem)
+    });
+    const update = await response;;
+    elemNodes.userName.textContent = elemNodes.editForm.value;
+    statusHandler(update.status, action);
+    hideEditForm(elemNodes);
+    console.log(update);
+    hideLoader();
+}
 
 const statusHandler = (status, action) => {
     const errorBlock = document.querySelector('.download-error');
@@ -142,7 +183,7 @@ const statusHandler = (status, action) => {
     switch (status) {
         case 200:
             message = `Data ${action} successfully`;
-            errorCloseTimeout = 2500;
+            errorCloseTimeout = 2000;
             break;
         case 400:
             message = `Error! 400: Bad Request`;
@@ -169,26 +210,28 @@ const statusHandler = (status, action) => {
     }, errorCloseTimeout);       
 };
 
-const showLoader = () => {
-    document.querySelector('.loader').classList.remove('hidden');
-};
+const showLoader = () => document.querySelector('.loader').classList.remove('hidden');
+const hideLoader = () => document.querySelector('.loader').classList.add('hidden');
 
-const hideLoader = () => {
-    document.querySelector('.loader').classList.add('hidden');
-};
-
+// hashchange and render posts
 const rootNode = document.querySelector('#root');
-const postsContainer = document.querySelector('#posts');
-
-window.addEventListener('DOMContentLoaded', () => {
-    location.hash = '#/main';
-});
+const main = document.querySelector('#main')
+const posts = document.querySelector('#posts');
 
 window.addEventListener('hashchange', () => {
     if (location.hash === '#/posts') {
-        rootNode.innerHTML = `<button id="btn-go-back">GO BACK</button>` + postsContainer.innerHTML;
+        localStorage.setItem('main', main.innerHTML); // save main in ls
+        main.innerHTML = ''; // clear main
     } else if (location.hash === '#/main') {
-        // do that
+        posts.innerHTML = ''; // clear posts
+        if (localStorage.getItem('main')) {
+            main.innerHTML = localStorage.getItem('main');
+        }
+        localStorage.clear();
+        document.querySelector('#users-list').innerHTML = '';
+        const btnFetchData = document.querySelector('#btn-fetch-data');
+        btnFetchData.addEventListener('click', renderMain);
+        location.reload();
     }
 });
 
@@ -198,7 +241,7 @@ const loadPosts = id => {
         const filteredPosts = postsData.filter(elem => elem.userId === id)
         .map(elem => ({post: elem.title, comment: elem.body}));
         displayPosts(filteredPosts);
-    }, DOWNLOAD_TIMEOUT);
+    }, RENDER_TIMEOUT);
     
     location.hash = '#/posts';
 };
@@ -217,8 +260,8 @@ const renderPost = obj => {
 };
 
 const displayPosts = data => {
-    data.forEach(elem => postsContainer.appendChild(renderPost(elem)));
-    rootNode.innerHTML = `<button id="btn-go-back">GO BACK</button>` + postsContainer.innerHTML;
+    data.forEach(elem => posts.appendChild(renderPost(elem)));
+    posts.innerHTML = `<button id="btn-go-back">GO BACK</button>` + posts.innerHTML;
     const btnGoBack = rootNode.querySelector('#btn-go-back');
     btnGoBack.addEventListener('click', () => {
         location.hash = '#/main';
