@@ -1,7 +1,9 @@
-// 1. get userlist GET /users
+'use strict';
+
 const btnFetchData = document.querySelector('#btn-fetch-data');
 const URL = 'https://jsonplaceholder.typicode.com';
 const VANISH = 'transform: scale(0); transition: all 0.4s ease';
+const DOWNLOAD_TIMEOUT = 100;
 
 const fetchData = dataType => {
     const fetched = [];
@@ -22,14 +24,12 @@ btnFetchData.addEventListener('click', () => {
     displayUsers(fetchData('users'));
 });
 */
-
-// 2. Display them as list with possibility to edit.
 const usersList = document.querySelector('#users-list');
-const userTemplate = document.querySelector('#display-user-template')
-    .content
-    .querySelector('.user');
 
 const renderUser = user => {
+    const userTemplate = document.querySelector('#display-user-template')
+    .content
+    .querySelector('.user');
     const userElement = userTemplate.cloneNode(true);
 
     const nodes = {
@@ -54,27 +54,27 @@ const renderUser = user => {
         });
     });
 
-    // 3. When editing is finished update user on the server(call PUT method) 
     nodes.saveUser.addEventListener('click', () => {
         updateHandler(user, nodes, 'PUT', 'updated');
     });
 
-    // 4. Add possibility to delete user DELETE /user/${id}
     nodes.deleteUser.addEventListener('click', function() {
         const delRecord = confirm('Are you sure you want to DELETE this record from server?');
         if (delRecord) {
             hideEditForm(nodes);
             updateHandler(user, nodes, 'DELETE', 'removed');    
             setTimeout(() => {
-                //this.parentNode.remove();  
                 this.parentNode.style = VANISH;
+                setTimeout(() => {
+                    this.parentNode.remove();                      
+                }, 400);
             }, 1000);
         }
     });
 
-    nodes.userName.addEventListener('click', () => {
-        console.log(fetchData('posts'));
-        
+    nodes.userName.addEventListener('click', function() {
+        const userId = parseInt(this.parentNode.children[1].textContent);
+        loadPosts(userId);
     });
     return userElement;
 };
@@ -82,7 +82,7 @@ const renderUser = user => {
 const displayUsers = users => {
     setTimeout(() => {
         users.forEach(elem => usersList.appendChild(renderUser(elem)));
-    }, 100);
+    }, DOWNLOAD_TIMEOUT);
 };
 
 displayUsers(fetchData('users'));
@@ -132,10 +132,12 @@ const statusHandler = (status, action) => {
     const errorBlock = document.querySelector('.download-error');
     const errorMessage = document.querySelector('.download-error__message');
     const errorClose = document.querySelector('.download-error__close');
+    const SUCCESS = '#28a745';
+    const DANGER = '#dc3545';
     let errorCloseTimeout = 10000;
     let message;
     let bgColor;
-    status === 200 ? bgColor = '#28a745' : bgColor = '#dc3545';
+    status === 200 ? bgColor = SUCCESS : bgColor = DANGER;
 
     switch (status) {
         case 200:
@@ -167,11 +169,58 @@ const statusHandler = (status, action) => {
     }, errorCloseTimeout);       
 };
 
-// 5. Show spinner on every request call
 const showLoader = () => {
     document.querySelector('.loader').classList.remove('hidden');
 };
 
 const hideLoader = () => {
     document.querySelector('.loader').classList.add('hidden');
+};
+
+const rootNode = document.querySelector('#root');
+const postsContainer = document.querySelector('#posts');
+
+window.addEventListener('DOMContentLoaded', () => {
+    location.hash = '#/main';
+});
+
+window.addEventListener('hashchange', () => {
+    if (location.hash === '#/posts') {
+        rootNode.innerHTML = `<button id="btn-go-back">GO BACK</button>` + postsContainer.innerHTML;
+    } else if (location.hash === '#/main') {
+        // do that
+    }
+});
+
+const loadPosts = id => {
+    const postsData = fetchData('posts');
+    setTimeout(() => {
+        const filteredPosts = postsData.filter(elem => elem.userId === id)
+        .map(elem => ({post: elem.title, comment: elem.body}));
+        displayPosts(filteredPosts);
+    }, DOWNLOAD_TIMEOUT);
+    
+    location.hash = '#/posts';
+};
+
+const renderPost = obj => {
+    const postTemplate = document.querySelector('#post-template')
+    .content
+    .querySelector('.post-container');
+    const postElement = postTemplate.cloneNode(true);
+    const userPost = postElement.querySelector('.user__post');
+    const userComment = postElement.querySelector('.user__comment');
+    userPost.textContent = obj.post;
+    userComment.textContent = obj.comment;
+
+    return postElement;
+};
+
+const displayPosts = data => {
+    data.forEach(elem => postsContainer.appendChild(renderPost(elem)));
+    rootNode.innerHTML = `<button id="btn-go-back">GO BACK</button>` + postsContainer.innerHTML;
+    const btnGoBack = rootNode.querySelector('#btn-go-back');
+    btnGoBack.addEventListener('click', () => {
+        location.hash = '#/main';
+    });
 };

@@ -7,6 +7,28 @@ body {
     display: none;
 }
 
+button {
+    margin-top: 15px;
+    padding: 5px 10px;
+    font-weight: bold;
+    background-color: #fff;
+    color: rgb(177, 17, 17);
+    border: 2px solid rgb(177, 17, 17);
+    outline: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #f1f1f1;
+}
+
+button:active {
+    position: relative;
+    top: 1px;
+    left: 1px;
+}
+
 #btn-fetch-data {
     margin-bottom: 15px;
 }
@@ -53,7 +75,6 @@ body {
     visibility: hidden;
     text-align: center;
 }
-/* #28a745 */
   
 .download-error__message {
     flex-grow: 97;
@@ -67,3 +88,40 @@ body {
     cursor: pointer;
     user-select: none;
 }
+
+/* post */ 
+
+.post-container {
+    background-color: #f1f1f1;
+    margin-top: 20px;
+    padding: 25px;
+    position: relative;
+}
+
+.user__post {
+    float: left;
+    text-decoration: underline; 
+    padding-bottom: 15px;
+}
+
+.user__comment {
+    float: right;
+    font-style: italic;
+    padding-left: 100px;
+}
+
+.post__avatar {
+    width: 100px;
+    height: 75px;
+    border-radius: 50%;
+    position: absolute;
+    top: 60px;
+    left: 20px;
+}
+
+.post-container::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+

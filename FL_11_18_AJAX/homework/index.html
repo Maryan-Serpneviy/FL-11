@@ -10,37 +10,44 @@
   <title>HW 18 - AJAX</title>
 </head>
 <body>
+  <div class="download-error">
+      <div class="download-error__message">Error message</div>
+      <div class="download-error__close">
+          +
+      </div>
+  </div>
+  <div class="loader hidden">
+    <div class="l_main">
+      <div class="l_square"><span></span><span></span><span></span></div>
+      <div class="l_square"><span></span><span></span><span></span></div>
+      <div class="l_square"><span></span><span></span><span></span></div>
+      <div class="l_square"><span></span><span></span><span></span></div>
+    </div>
+  </div>
   <div id="root">
-    <div class="loader hidden">
-      <div class="l_main">
-        <div class="l_square"><span></span><span></span><span></span></div>
-        <div class="l_square"><span></span><span></span><span></span></div>
-        <div class="l_square"><span></span><span></span><span></span></div>
-        <div class="l_square"><span></span><span></span><span></span></div>
-      </div>
-    </div>
-    <div class="download-error">
-        <div class="download-error__message">Error message</div>
-        <div class="download-error__close">
-            +
+    <section id="main">
+      <button id="btn-fetch-data">GET USERS</button>
+      <div id="users-list"></div>
+      <template id="display-user-template">
+        <div class="user">
+          <img class="user__avatar" src="">
+          <div class="user__id"></div>
+          <div class="user__username"></div>
+          <input class="user__edit hidden" type="text">
+          <i id="save-icon" class="material-icons icon">save</i>
+          <i id="edit-icon" class="material-icons icon">edit</i>
+          <i id="delete-icon" class="material-icons icon">delete</i>
         </div>
-    </div>
-    <button id="btn-fetch-data">GET USERS</button>
-    <div id="users-list"></div>
-    <div id="posts-list">
-      <ul id="posts-list__items"></ul>
-    </div>
-    <template id="display-user-template">
-      <div class="user">
-        <img class="user__avatar" src="">
-        <div class="user__id"></div>
-        <div class="user__username"></div>
-        <input class="user__edit hidden" type="text">
-        <i id="save-icon" class="material-icons icon">save</i>
-        <i id="edit-icon" class="material-icons icon">edit</i>
-        <i id="delete-icon" class="material-icons icon">delete</i>
-      </div>
-    </template>
+      </template>
+    </section>
+    <section id="posts">
+      <template id="post-template">
+        <div class="post-container">
+          <div class="user__post">soluta aliquam aperiam consequatur illo quis voluptas</div>
+          <div class="user__comment">qui enim et consequuntur quia animi quis voluptate quibusdam</div>
+        </div>
+      </template>
+    </section>
   </div>
   <script src="js/index.js"></script>
 </body>
