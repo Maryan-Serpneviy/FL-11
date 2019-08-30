@@ -231,7 +231,6 @@ window.addEventListener('hashchange', () => {
         document.querySelector('#users-list').innerHTML = '';
         const btnFetchData = document.querySelector('#btn-fetch-data');
         btnFetchData.addEventListener('click', renderMain);
-        
         location.reload();
     }
 });
@@ -273,3 +272,8 @@ const hintHide = document.querySelector('.hint-hide');
 hintHide.addEventListener('click', () => {
     hint.style = VANISH;
 })
+
+const btnReload = document.querySelector('#btn-reload');
+btnReload.addEventListener('click', () => {
+    location.reload();
+});
