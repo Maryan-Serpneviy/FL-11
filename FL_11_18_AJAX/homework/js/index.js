@@ -3,7 +3,7 @@
 const btnFetchData = document.querySelector('#btn-fetch-data');
 const URL = 'https://jsonplaceholder.typicode.com';
 const VANISH = 'transform: scale(0); transition: all 0.4s ease';
-const RENDER_TIMEOUT = 200;
+const RENDER_TIMEOUT = 500;
 
 window.addEventListener('DOMContentLoaded', () => {
     location.hash = '#/main';
@@ -11,6 +11,14 @@ window.addEventListener('DOMContentLoaded', () => {
     btnFetchData.addEventListener('click', renderMain);
 });
 
+const serverTimeoutHandler = (ms, promise) => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            statusHandler('timeout');
+        }, ms);
+        promise.then(resolve, reject)        
+    });
+};
 // promises
 const fetchData = dataType => {
     const fetched = [];
@@ -136,7 +144,7 @@ const hideEditForm = user => {
 /*
 const updateHandler = (elem, elemNodes, method, action) => {
     showLoader();
-    fetch(`${URL}/users/${elem.id}`, {
+    serverTimeoutHandler(1, fetch(`${URL}/users/${elem.id}`, {
         method: method,
         headers: {
           'Content-Type': 'application/json;charset=utf-8'
@@ -149,19 +157,20 @@ const updateHandler = (elem, elemNodes, method, action) => {
         hideEditForm(elemNodes);
         console.log(update);
         hideLoader();
-    });
+    }));
 };
 */
 // async/await
 async function updateHandler(elem, elemNodes, method, action) {
+    const CONNECTION_TIMEOUT = 7000;
     showLoader();
-    const response = await fetch(`${URL}/users/${elem.id}`, {
+    const response = await serverTimeoutHandler(CONNECTION_TIMEOUT, fetch(`${URL}/users/${elem.id}`, {
         method: method,
         headers: {
           'Content-Type': 'application/json;charset=utf-8'
         },
         body: JSON.stringify(elem)
-    });
+    }));
     const update = await response;;
     elemNodes.userName.textContent = elemNodes.editForm.value;
     statusHandler(update.status, action);
@@ -176,6 +185,7 @@ const statusHandler = (status, action) => {
     const errorClose = document.querySelector('.download-error__close');
     const SUCCESS = '#28a745';
     const DANGER = '#dc3545';
+    const RELOAD_TIMEOUT = 5000;
     let errorCloseTimeout = 10000;
     let message;
     let bgColor;
@@ -197,6 +207,12 @@ const statusHandler = (status, action) => {
             break;
         case 500:
             message = `Error! 500: Internal server error`;
+            break;
+        case 'timeout':
+            message = `Server connection timeout. Page will be reloaded`;
+            setTimeout(() => {
+                location.reload();
+            }, RELOAD_TIMEOUT);
             break;
         default:
             message = `Response status: ${status}`;
