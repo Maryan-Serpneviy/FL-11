@@ -4,6 +4,7 @@ const btnFetchData = document.querySelector('#btn-fetch-data');
 const URL = 'https://jsonplaceholder.typicode.com';
 const VANISH = 'transform: scale(0); transition: all 0.4s ease';
 const RENDER_TIMEOUT = 500;
+const CONNECTION_TIMEOUT = 5000;
 
 window.addEventListener('DOMContentLoaded', () => {
     location.hash = '#/main';
@@ -11,18 +12,25 @@ window.addEventListener('DOMContentLoaded', () => {
     btnFetchData.addEventListener('click', renderMain);
 });
 
-const serverTimeoutHandler = (ms, promise) => {
+const timeoutableFetch = (url, options = {}) => {
+    let { timeout = CONNECTION_TIMEOUT, ...rest } = options;
+    if (rest.signal) throw new Error("Signal not supported in timeoutable fetch");
+    const controller = new AbortController();
+    const { signal } = controller;
     return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            statusHandler('timeout');
-        }, ms);
-        promise.then(resolve, reject)        
+        const timer = setTimeout(() => {
+        reject(statusHandler('timeout'));
+        controller.abort();
+        }, timeout);
+        fetch(url, { signal, ...rest })
+        .finally(() => clearTimeout(timer))
+        .then(resolve, reject);
     });
 };
-// promises
+
 const fetchData = dataType => {
     const fetched = [];
-    fetch(`${URL}/${dataType}`)
+    timeoutableFetch(`${URL}/${dataType}`)
     .then(response => {
         statusHandler(response.status, 'downloaded');
         return response.json();
@@ -34,11 +42,10 @@ const fetchData = dataType => {
     })
     return fetched;
 };
-// async/await
 /*
 async function fetchData(dataType) {
     const fetched = [];
-    const response = await fetch(`${URL}/${dataType}`);
+    const response = await timeoutableFetch(`${URL}/${dataType}`);
     statusHandler(response.status, 'downloaded');
     const data = await response.json();
     for (let elem in data) {
@@ -139,12 +146,10 @@ const hideEditForm = user => {
     user.deleteUser.style.display = 'none';
 };
 
-// handle remote data
-// promises
 /*
 const updateHandler = (elem, elemNodes, method, action) => {
     showLoader();
-    serverTimeoutHandler(1, fetch(`${URL}/users/${elem.id}`, {
+    timeoutableFetch(`${URL}/users/${elem.id}`, {
         method: method,
         headers: {
           'Content-Type': 'application/json;charset=utf-8'
@@ -157,20 +162,18 @@ const updateHandler = (elem, elemNodes, method, action) => {
         hideEditForm(elemNodes);
         console.log(update);
         hideLoader();
-    }));
+    });
 };
 */
-// async/await
 async function updateHandler(elem, elemNodes, method, action) {
-    const CONNECTION_TIMEOUT = 7000;
     showLoader();
-    const response = await serverTimeoutHandler(CONNECTION_TIMEOUT, fetch(`${URL}/users/${elem.id}`, {
+    const response = await timeoutableFetch(`${URL}/users/${elem.id}`, {
         method: method,
         headers: {
           'Content-Type': 'application/json;charset=utf-8'
         },
         body: JSON.stringify(elem)
-    }));
+    });
     const update = await response;;
     elemNodes.userName.textContent = elemNodes.editForm.value;
     statusHandler(update.status, action);
