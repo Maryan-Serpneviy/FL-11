@@ -10,9 +10,13 @@ body {
     text-align: center;
     display: flex;
     text-align: center;
-    background-color: #edf8fe;
+    background-color: $bg-color;
     font-family: 'Lucida Sans Unicode', sans-serif;
     user-select: none;
+}
+
+.hidden {
+    display: none;
 }
 
 .game {
@@ -55,9 +59,17 @@ button {
 }
 
 .game__status {
-    min-height: 150px;
+    min-height: 50px;
     border: 2px dashed black;
     padding: 15px;
+}
+
+.game__status--info {
+    position: relative;
+    height: 54px;
+    line-height: 54px;
+    bottom: 52px;
+    color: darken($bg-color, 15%);
 }
 
 .btn {
