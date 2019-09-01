@@ -58,13 +58,13 @@ const stopGame = () => {
 const showGameResult = () => {
     let result;
     if (yourPoints > opponentPoints) {
-        result = `You've WON!`;
+        result = `You've <b>WON!</b>`;
     } else if (yourPoints < opponentPoints) {
-        result = `You've LOST!`;
+        result = `You've <b>LOST!</b>`;
     } else {
-        result = `DRAW!`;
+        result = `<b>DRAW!</b>`;
     }
-    gameStatus.innerHTML += `YOU: <b>${yourPoints}</b> point(s), OPPONENT: <b>${opponentPoints}</b> point(s). <b>${result}</b>`;
+    gameStatus.innerHTML += `YOU: <b>${yourPoints}</b> point(s), OPPONENT: <b>${opponentPoints}</b> point(s). ${result}`;
     yourPoints = 0;
     opponentPoints = 0;
 };
