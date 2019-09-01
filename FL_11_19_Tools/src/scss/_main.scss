@@ -15,6 +15,11 @@ body {
     user-select: none;
 }
 
+.game {
+    width: 365px;
+    margin: 0 auto;
+}
+
 .heading::selection, img::selection, button::selection, div::selection {
     background: none;
 }
@@ -32,25 +37,30 @@ h1 {
 }
 
 .game__rules--img {
-    width: 380px;
+    width: 370px;
+}
+
+.game__ui-bottom {
+    display: flex;
+    flex-direction: column;
+}
+
+.game__start-buttons {
+    display: flex;
+    justify-content: space-between;
 }
 
 button {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .game__status {
-    width: 415px;
-    position: relative;
-    left: -10px;
-    height: 150px;
-    margin: auto;
+    min-height: 150px;
     border: 2px dashed black;
     padding: 15px;
 }
 
 .btn {
-    margin-right: 15px;
     overflow: hidden;
     width: $btn-size;
     img {
@@ -64,17 +74,16 @@ button {
     }
     &-paper {
         img {
-            margin-left: -120px;
+            margin-left: -110px;
         }
     }
     &-scissors {
         img {
-            margin-left: -237px;
+            margin-left: -217px;
         }
     }
     &-reset {
-        width: 415px;
         height: 25px;
-        margin-left: -5px;
+        width: 100%;
     }
 }
