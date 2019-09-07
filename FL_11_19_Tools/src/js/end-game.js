@@ -1,23 +1,26 @@
-'use strict';
+//import init from './init-game.js'; // default import omits {} braces
+
+//const startButtons = document.querySelector('.game__start-buttons');
+//const btnReset = document.querySelector('.btn-reset');
+
+const btnDisable = btn => {
+    btn.disabled = true;
+    btn.style.backgroundColor = 'lightgray';
+};
+
+const btnEnable = btn => {
+    btn.disabled = false;
+    btn.style = '';
+};
 
 const stopGame = () => {
-    startButtons.removeEventListener('click', initGameHandler);
+    startButtons.removeEventListener('click', initGameHandler); // init
     Array.from(startButtons.children).forEach(elem => {
         btnDisable(elem);
     });
     btnEnable(btnReset);
 };
 
-const showGameResult = () => {
-    let result;
-    if (yourPoints > opponentPoints) {
-        result = `You've <b>WON!</b>`;
-    } else if (yourPoints < opponentPoints) {
-        result = `You've <b>LOST!</b>`;
-    } else {
-        result = `<b>DRAW!</b>`;
-    }
-    gameStatus.innerHTML += `YOU: <b>${yourPoints}</b> point(s), OPPONENT: <b>${opponentPoints}</b> point(s). ${result}`;
-    yourPoints = 0;
-    opponentPoints = 0;
-};
+btnDisable(btnReset);
+
+//export { btnDisable as disable, btnEnable as enable, stopGame as complete };
