@@ -6,10 +6,21 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" type="text/css" href="scss/styles.css">
   <title>HW 19 - Tools</title>
+  <script>
+    const importModule = path => {
+      const scriptElem = document.createElement('script');
+      scriptElem.type = 'module';
+      scriptElem.src = `${path}.js`;
+      document.head.appendChild(scriptElem);
+    };
+  </script>
   <!-- ES2015 Modules -->
+  <!--
   <script src="js/init-game.js" type="module"></script>
   <script src="js/round.js" type="module"></script>
   <script src="js/end-game.js" type="module"></script>
+  -->
+  <script src="index.js"></script>
 </head>
 <body>
   <div class="game">
