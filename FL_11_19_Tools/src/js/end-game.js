@@ -1,7 +1,7 @@
-//import init from './init-game.js'; // default import omits {} braces
+import init from './init-game.js'; // default import omits {} braces
 
-//const startButtons = document.querySelector('.game__start-buttons');
-//const btnReset = document.querySelector('.btn-reset');
+const startButtons = document.querySelector('.game__start-buttons');
+const btnReset = document.querySelector('.btn-reset');
 
 const btnDisable = btn => {
     btn.disabled = true;
@@ -14,7 +14,7 @@ const btnEnable = btn => {
 };
 
 const stopGame = () => {
-    startButtons.removeEventListener('click', initGameHandler); // init
+    startButtons.removeEventListener('click', init); // renamed import
     Array.from(startButtons.children).forEach(elem => {
         btnDisable(elem);
     });
@@ -23,4 +23,4 @@ const stopGame = () => {
 
 btnDisable(btnReset);
 
-//export { btnDisable as disable, btnEnable as enable, stopGame as complete };
+export { btnDisable as disable, btnEnable as enable, stopGame as complete };

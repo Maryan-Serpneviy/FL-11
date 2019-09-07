@@ -1,10 +1,10 @@
-//const gameStatus = document.querySelector('.game__status');
+const gameStatus = document.querySelector('.game__status');
 
 let yourPoints = 0;
 let opponentPoints = 0;
 
 // immediate export of variable declaration
-const processRoundResult = (yourMove, opponentMove) => {
+export const processRoundResult = (yourMove, opponentMove) => {
     const y = `You've`;
     let result;
     if (yourMove === 'Rock' && opponentMove === 'Scissors') {
@@ -32,7 +32,7 @@ const processRoundResult = (yourMove, opponentMove) => {
 };
 
 // immediate export of variable declaration
-const showGameResult = () => {
+export const showGameResult = () => {
     let result;
     if (yourPoints > opponentPoints) {
         result = `You've <b>WON!</b>`;

@@ -1,5 +1,5 @@
-//import { processRoundResult, showGameResult as defineResult /* rename imported value */ } from './round.js';
-//import * as endGame from './end-game.js';
+import { processRoundResult, showGameResult as defineResult /* rename imported value */ } from './round.js';
+import * as endGame from './end-game.js';
 // import stopGame, /* <= default import, {} omitted */ { btnEnable, btnDisable } from './end-game.js';
 // all imported values are constants
 
@@ -22,11 +22,9 @@ const resetGameHandler = () => {
     gameStatus.innerHTML = '';
     gameStatusInfo.classList.remove('hidden');
     Array.from(startButtons.children).forEach(elem => {
-        //endGame.enable(elem);
-        btnEnable(btnReset);
+        endGame.enable(elem);
     });
-    //endGame.disable(btnReset);
-    btnDisable(btnReset);
+    endGame.disable(btnReset);
     startButtons.addEventListener('click', initGameHandler);
 };
 
@@ -40,12 +38,10 @@ const initGame = move => {
     
     gameStatus.innerHTML += `<i>Round ${rounds}</i>, <b>${move}</b> vs. <u>${opponentMove}</u>, ${processRoundResult(move, opponentMove)}<br>`;
     if (rounds >= 3) {
-        //endGame.complete();
-        stopGame();
-        //defineResult(); // renamed imported value
-        showGameResult();
+        endGame.complete();
+        defineResult(); // renamed imported value
     }
 };
 
-//export default initGameHandler; // default export omits {} braces
+export default initGameHandler; // default export omits {} braces
 // only one export default by module
