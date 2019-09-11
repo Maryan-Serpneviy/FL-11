@@ -9,7 +9,7 @@ class Order {
         this.nightDiscount || this.weekendDiscount ?
         sum = this.orderTotalPrice - (this.orderTotalPrice * 0.05) - this.bonus :
         sum = this.orderTotalPrice - this.bonus;
-        
+
         return `Price after discount and including bonuses is ${sum}`;
     }
 }
@@ -27,9 +27,7 @@ const getDiscount = order => {
 };
 
 const setBonus = order => {
-    const total = order.orderTotalPrice;
-    const bonus = total / 20;
-    order.bonus = bonus;
+    order.bonus = order.orderTotalPrice / 20;
 };
 
 const Maryan = new Order('Maryan', 500);
