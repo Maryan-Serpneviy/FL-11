@@ -6,11 +6,10 @@ class Order {
 
     makeOrder() {
         let sum;
-        if (this.nightDiscount || this.weekendDiscount)  {
-            sum = this.orderTotalPrice - (this.orderTotalPrice * 0.05) - this.bonus;
-        } else {
-            sum = this.orderTotalPrice - this.bonus;
-        }
+        this.nightDiscount || this.weekendDiscount ?
+        sum = this.orderTotalPrice - (this.orderTotalPrice * 0.05) - this.bonus :
+        sum = this.orderTotalPrice - this.bonus;
+        
         return `Price after discount and including bonuses is ${sum}`;
     }
 }
