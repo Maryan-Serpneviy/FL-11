@@ -1,13 +1,14 @@
 class Order {
-    constructor(name, orderTotalPrice) {
+    constructor (name, orderTotalPrice) {
         this.name = name;
         this.orderTotalPrice = orderTotalPrice;
+        this.bonus = 0;
     }
 
     makeOrder() {
         let sum;
         this.nightDiscount || this.weekendDiscount ?
-        sum = this.orderTotalPrice - (this.orderTotalPrice * 0.05) - this.bonus :
+        sum = this.orderTotalPrice - (this.orderTotalPrice * 0.1) - this.bonus :
         sum = this.orderTotalPrice - this.bonus;
 
         return `Price after discount and including bonuses is ${sum}`;
@@ -35,6 +36,8 @@ console.log(Maryan)
 
 getDiscount(Maryan);
 console.log(Maryan);
+
+console.log(Maryan.makeOrder());
 
 setBonus(Maryan);
 console.log(Maryan);
