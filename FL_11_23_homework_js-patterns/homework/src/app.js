@@ -1,3 +1,5 @@
+'use strict';
+
 class Order {
     constructor (name, orderTotalPrice) {
         this.name = name;
