@@ -11,24 +11,29 @@ class Order {
 
 const getDiscount = order => {
     const date = new Date();
-    const weekend = [0, 5]; // Sun: 0, Sat: 6
+    const WEEKEND = [0, 5]; // Sun: 0, Sat: 6
+    const DISCOUNT_VAL = 0.1;
+    const NIGHT_HOUR = 23;
+    const MORNING_HOUR = 6;
 
     if (!order.discount) {
         order.bonus ?
-        order.discount = (order.orderTotalPrice + order.bonus) * 0.1 :
-        order.discount = order.orderTotalPrice * 0.1;
+        order.discount = (order.orderTotalPrice + order.bonus) * DISCOUNT_VAL :
+        order.discount = order.orderTotalPrice * DISCOUNT_VAL;
         
-        if (date.getHours() >= 23 || date.getHours() < 6 || weekend.indexOf(date.getDay()) !== -1) {
+        if (date.getHours() >= NIGHT_HOUR || date.getHours() < MORNING_HOUR || WEEKEND.indexOf(date.getDay()) !== -1) {
             order.orderTotalPrice -= order.discount;
         }
     }
 };
 
 const setBonus = order => {
+    const BONUS_VAL = 0.05;
+
     if (!order.bonus) {
         order.discount ?
-        order.bonus = (order.orderTotalPrice + order.discount) / 20 :
-        order.bonus = order.orderTotalPrice / 20;
+        order.bonus = (order.orderTotalPrice + order.discount) * BONUS_VAL :
+        order.bonus = order.orderTotalPrice * BONUS_VAL;
         
         order.orderTotalPrice -= order.bonus;
     }
