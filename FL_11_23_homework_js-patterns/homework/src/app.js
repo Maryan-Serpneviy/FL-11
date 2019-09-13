@@ -11,7 +11,7 @@ class Order {
 
 const getDiscount = order => {
     const date = new Date();
-    const WEEKEND = [0, 5]; // Sun: 0, Sat: 6
+    const WEEKEND = [0, 6]; // Sun: 0, Sat: 6
     const DISCOUNT_VAL = 0.1;
     const NIGHT_HOUR = 23;
     const MORNING_HOUR = 6;
