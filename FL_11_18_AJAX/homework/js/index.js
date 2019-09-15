@@ -1,9 +1,9 @@
 'use strict';
 
+// ajax.js
 const btnFetchData = document.querySelector('#btn-fetch-data');
-const URL = 'https://jsonplaceholder.typicode.com';
+const API = 'https://jsonplaceholder.typicode.com';
 const VANISH = 'transform: scale(0); transition: all 0.4s ease';
-const RENDER_TIMEOUT = 500;
 const CONNECTION_TIMEOUT = 5000;
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -11,6 +11,34 @@ window.addEventListener('DOMContentLoaded', () => {
     localStorage.clear();
     btnFetchData.addEventListener('click', renderMain);
 });
+
+const renderMain = () => fetchData('users');
+/*
+const fetchData = (dataType, id) => {
+    timeoutableFetch(`${API}/${dataType}`)
+    .then(response => {
+        statusHandler(response.status, 'downloaded');
+        return response.json();
+    })
+    .then(data => {
+        if (dataType === 'users') {
+            displayUsers(data);
+        } else if (dataType === 'posts') {
+            loadPosts(data, id);
+        }
+    })
+};
+*/
+async function fetchData(dataType, id) {
+    const response = await timeoutableFetch(`${API}/${dataType}`);
+    statusHandler(response.status, 'downloaded');
+    const data = await response.json();
+    if (dataType === 'users') {
+        displayUsers(data);
+    } else if (dataType === 'posts') {
+        loadPosts(data, id);
+    }
+}
 
 const timeoutableFetch = (url, options = {}) => {
     let { timeout = CONNECTION_TIMEOUT, ...rest } = options;
@@ -28,128 +56,11 @@ const timeoutableFetch = (url, options = {}) => {
     });
 };
 
-const fetchData = dataType => {
-    const fetched = [];
-    timeoutableFetch(`${URL}/${dataType}`)
-    .then(response => {
-        statusHandler(response.status, 'downloaded');
-        return response.json();
-    })
-    .then(data => {
-        for (let elem in data) {
-            fetched.push(data[elem]);
-        }
-    })
-    return fetched;
-};
-/*
-async function fetchData(dataType) {
-    const fetched = [];
-    const response = await timeoutableFetch(`${URL}/${dataType}`);
-    statusHandler(response.status, 'downloaded');
-    const data = await response.json();
-    for (let elem in data) {
-        fetched.push(data[elem]);
-    }
-    return fetched;
-};
-*/
-const usersList = document.querySelector('#users-list');
-
-const renderUser = user => {
-    const userTemplate = document.querySelector('#user-template')
-    .content
-    .querySelector('.user');
-    const userElement = userTemplate.cloneNode(true);
-
-    const nodes = {
-        userId: userElement.querySelector('.user__id'),
-        userName: userElement.querySelector('.user__username'),
-        editUser: userElement.querySelector('#edit-icon'),
-        editForm: userElement.querySelector('.user__edit'),
-        saveUser: userElement.querySelector('#save-icon'),
-        deleteUser: userElement.querySelector('#delete-icon')
-    };
-
-    nodes.userId.textContent = `${user.id}.`;
-    nodes.userName.textContent = user.username;
-    nodes.editForm.value = nodes.userName.textContent;
-
-    nodes.editUser.addEventListener('click', () => {
-        showEditForm(nodes);
-        document.addEventListener('keydown', evt => {
-            if (evt.key === 'Escape') {
-                hideEditForm(nodes);
-            }
-        });
-    });
-
-    nodes.saveUser.addEventListener('click', () => {
-        updateHandler(user, nodes, 'PUT', 'updated');
-    });
-
-    nodes.deleteUser.addEventListener('click', function() {
-        const delRecord = confirm('Are you sure you want to DELETE this record from server?');
-        if (delRecord) {
-            hideEditForm(nodes);
-            updateHandler(user, nodes, 'DELETE', 'removed');    
-            setTimeout(() => {
-                this.parentNode.style = VANISH;
-                setTimeout(() => {
-                    this.parentNode.remove();                      
-                }, 400);
-            }, 1000);
-        }
-    });
-
-    nodes.userName.addEventListener('click', function() {
-        const userId = parseInt(this.parentNode.children[1].textContent);
-        loadPosts(userId);
-    });
-    return userElement;
-};
-
-const displayUsers = users => {
-    usersList.innerHTML = '';
-    setTimeout(() => {
-        users.forEach(elem => usersList.appendChild(renderUser(elem)));
-    }, RENDER_TIMEOUT);
-    btnFetchData.removeEventListener('click', renderMain);
-    btnFetchData.disabled = true;
-    btnFetchData.style.backgroundColor = 'rgb(253, 231, 231)';
-};
-
-const renderMain = () => displayUsers(fetchData('users'));
-
-//displayUsers(fetchData('users'));
-
-const showEditForm = user => {
-    user.userName.classList.add('hidden');
-    user.editForm.classList.remove('hidden');
-    user.editUser.style.display = 'none';
-    user.saveUser.style.display = 'block';
-    user.deleteUser.style.display = 'block';
-    user.editForm.focus();
-    const editBtns = document.querySelectorAll('#edit-icon');
-    editBtns.forEach(elem => {
-        elem.addEventListener('mousedown', () => {
-            hideEditForm(user);
-        });
-    });
-};
-
-const hideEditForm = user => {
-    user.userName.classList.remove('hidden');
-    user.editUser.style.display = 'block';
-    user.editForm.classList.add('hidden');
-    user.saveUser.style.display = 'none';
-    user.deleteUser.style.display = 'none';
-};
-
+// handlers.js
 /*
 const updateHandler = (elem, elemNodes, method, action) => {
     showLoader();
-    timeoutableFetch(`${URL}/users/${elem.id}`, {
+    timeoutableFetch(`${API}/users/${elem.id}`, {
         method: method,
         headers: {
           'Content-Type': 'application/json;charset=utf-8'
@@ -167,7 +78,7 @@ const updateHandler = (elem, elemNodes, method, action) => {
 */
 async function updateHandler(elem, elemNodes, method, action) {
     showLoader();
-    const response = await timeoutableFetch(`${URL}/users/${elem.id}`, {
+    const response = await timeoutableFetch(`${API}/users/${elem.id}`, {
         method: method,
         headers: {
           'Content-Type': 'application/json;charset=utf-8'
@@ -230,16 +141,93 @@ const statusHandler = (status, action) => {
     }, errorCloseTimeout);       
 };
 
-const showLoader = () => {
-    document.querySelector('.loader').classList.remove('hidden');
-    rootNode.classList.add('hidden');
-};
-const hideLoader = () => {
-    document.querySelector('.loader').classList.add('hidden');
-    rootNode.classList.remove('hidden');
+// main.js
+const displayUsers = users => {
+    const usersList = document.querySelector('#users-list');
+    usersList.innerHTML = '';
+    users.forEach(elem => usersList.appendChild(renderUser(elem)));
+    btnFetchData.removeEventListener('click', fetchData);
+    btnFetchData.disabled = true;
+    btnFetchData.style.backgroundColor = 'rgb(253, 231, 231)';
 };
 
-// hashchange and render posts
+const renderUser = user => {
+    const userTemplate = document.querySelector('#user-template')
+    .content
+    .querySelector('.user');
+    const userElement = userTemplate.cloneNode(true);
+
+    const nodes = {
+        userId: userElement.querySelector('.user__id'),
+        userName: userElement.querySelector('.user__username'),
+        editUser: userElement.querySelector('#edit-icon'),
+        editForm: userElement.querySelector('.user__edit'),
+        saveUser: userElement.querySelector('#save-icon'),
+        deleteUser: userElement.querySelector('#delete-icon')
+    };
+
+    nodes.userId.textContent = `${user.id}.`;
+    nodes.userName.textContent = user.username;
+    nodes.editForm.value = nodes.userName.textContent;
+
+    nodes.editUser.addEventListener('click', () => {
+        showEditForm(nodes);
+        document.addEventListener('keydown', evt => {
+            if (evt.key === 'Escape') {
+                hideEditForm(nodes);
+            }
+        });
+    });
+
+    nodes.saveUser.addEventListener('click', () => {
+        updateHandler(user, nodes, 'PUT', 'updated');
+    });
+
+    nodes.deleteUser.addEventListener('click', function() {
+        const delRecord = confirm('Are you sure you want to DELETE this record from server?');
+        if (delRecord) {
+            hideEditForm(nodes);
+            updateHandler(user, nodes, 'DELETE', 'removed');    
+            setTimeout(() => {
+                this.parentNode.style = VANISH;
+                setTimeout(() => {
+                    this.parentNode.remove();                      
+                }, 400);
+            }, 1000);
+        }
+    });
+
+    nodes.userName.addEventListener('click', function() {
+        const userId = parseInt(this.parentNode.children[1].textContent);
+        fetchData('posts', userId);
+    });
+    return userElement;
+};
+
+const showEditForm = user => {
+    user.userName.classList.add('hidden');
+    user.editForm.classList.remove('hidden');
+    user.editUser.style.display = 'none';
+    user.saveUser.style.display = 'block';
+    user.deleteUser.style.display = 'block';
+    user.editForm.focus();
+    const editBtns = document.querySelectorAll('#edit-icon');
+    editBtns.forEach(elem => {
+        elem.addEventListener('mousedown', () => {
+            hideEditForm(user);
+        });
+    });
+};
+
+const hideEditForm = user => {
+    user.userName.classList.remove('hidden');
+    user.editUser.style.display = 'block';
+    user.editForm.classList.add('hidden');
+    user.saveUser.style.display = 'none';
+    user.deleteUser.style.display = 'none';
+};
+
+// posts.js
 const rootNode = document.querySelector('#root');
 const main = document.querySelector('#main')
 const posts = document.querySelector('#posts');
@@ -261,13 +249,10 @@ window.addEventListener('hashchange', () => {
     }
 });
 
-const loadPosts = id => {
-    const postsData = fetchData('posts');
-    setTimeout(() => {
-        const filteredPosts = postsData.filter(elem => elem.userId === id)
+const loadPosts = (users, id) => {
+    const filteredPosts = users.filter(elem => elem.userId === id)
         .map(elem => ({post: elem.title, comment: elem.body}));
-        displayPosts(filteredPosts);
-    }, RENDER_TIMEOUT);
+    displayPosts(filteredPosts);
     location.hash = '#/posts';
 };
 
@@ -291,6 +276,16 @@ const displayPosts = data => {
     btnGoBack.addEventListener('click', () => {
         location.hash = '#/main';
     });
+};
+
+// utils
+const showLoader = () => {
+    document.querySelector('.loader').classList.remove('hidden');
+    rootNode.classList.add('hidden');
+};
+const hideLoader = () => {
+    document.querySelector('.loader').classList.add('hidden');
+    rootNode.classList.remove('hidden');
 };
 
 const hint = document.querySelector('#hint');
