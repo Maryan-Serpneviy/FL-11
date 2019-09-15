@@ -5,7 +5,20 @@ class Order {
     }
 
     makeOrder() {
-        return `Price after discount and including bonuses is ${this.orderTotalPrice}`;
+        let bonus = '';
+        let discount = '';
+        let and = '';
+        if (this.bonus && this.discount) {
+            and = ' and';
+        }
+        if (this.bonus) {
+            bonus = ' including bonuses';            
+        }
+        if (this.discount) {
+            discount = ' after discount';
+        }
+        
+        return `Price${discount}${and}${bonus} is ${this.orderTotalPrice}`;
     }
 }
 
@@ -41,6 +54,7 @@ const setBonus = order => {
 
 const Maryan = new Order('Maryan', 500);
 console.log(Maryan);
+console.log(Maryan.makeOrder());
 
 setBonus(Maryan);
 console.log(Maryan);
