@@ -1,6 +1,3 @@
-// edit hint
-// remove reload btn
-// edit enter event
 // hashchange local storage
 // import all modules here
 

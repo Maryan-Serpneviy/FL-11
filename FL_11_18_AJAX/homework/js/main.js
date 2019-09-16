@@ -38,8 +38,10 @@ const renderUser = user => {
             if (evt.key === 'Escape') {
                 hideEditForm(nodes);
             }
+        });
+        nodes.editForm.addEventListener('keydown', evt => {
             if (evt.key === 'Enter') {
-                alert('Enter');
+                updateHandler(user, nodes, 'PUT', 'updated');
             }
         });
     });
