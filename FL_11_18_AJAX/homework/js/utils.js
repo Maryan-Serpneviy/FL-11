@@ -9,7 +9,7 @@ const hintHide = document.querySelector('.hint-hide');
 const getUserPosts = function() {
     const userId = parseInt(this.parentNode.children[1].textContent);
     fetchData('posts', userId);
-}
+};
 
 const showLoader = () => {
     document.querySelector('.loader').classList.remove('hidden');

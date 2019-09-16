@@ -1,6 +1,5 @@
 import constants from './constants.js';
 import { timeoutableFetch } from './ajax.js';
-import { hideEditForm } from './main.js';
 import { showLoader, hideLoader } from './utils.js';
 
 const statusHandler = (status, action) => {
@@ -51,19 +50,17 @@ const statusHandler = (status, action) => {
     }, errorCloseTimeout);       
 };
 
-async function updateHandler(elem, elemNodes, method, action) {
+async function updateHandler(id, elemNodes, method, action) {
     showLoader();
-    const response = await timeoutableFetch(`${constants.API}/users/${elem.id}`, {
+    const response = await timeoutableFetch(`${constants.API}/users/${id}`, {
         method: method,
         headers: {
           'Content-Type': 'application/json;charset=utf-8'
         },
-        body: JSON.stringify(elem)
     });
     const update = await response;;
     elemNodes.userName.textContent = elemNodes.editForm.value;
     statusHandler(update.status, action);
-    hideEditForm(elemNodes);
     console.log(update);
     hideLoader();
 }
@@ -83,7 +80,6 @@ const updateHandler = (elem, elemNodes, method, action) => {
     .then(update => {
         elemNodes.userName.textContent = elemNodes.editForm.value;
         statusHandler(update.status, action);
-        hideEditForm(elemNodes);
         console.log(update);
         hideLoader();
     });

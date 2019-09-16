@@ -42,20 +42,22 @@ const renderUser = user => {
         });
         nodes.editForm.addEventListener('keydown', evt => {
             if (evt.key === 'Enter') {
-                updateHandler(user, nodes, 'PUT', 'updated');
+                updateHandler(user.id, nodes, 'PUT', 'updated');
+                hideEditForm(nodes);
             }
         });
     });
 
     nodes.saveUser.addEventListener('click', () => {
-        updateHandler(user, nodes, 'PUT', 'updated');
+        updateHandler(user.id, nodes, 'PUT', 'updated');
+        hideEditForm(nodes);
     });
 
     nodes.deleteUser.addEventListener('click', function() {
         const delRecord = confirm('Are you sure you want to DELETE this record from server?');
         if (delRecord) {
+            updateHandler(user.id, nodes, 'DELETE', 'removed');    
             hideEditForm(nodes);
-            updateHandler(user, nodes, 'DELETE', 'removed');    
             setTimeout(() => {
                 this.parentNode.style = constants.VANISH;
                 setTimeout(() => {
@@ -72,10 +74,10 @@ const renderUser = user => {
 const showEditForm = user => {
     user.userName.classList.add('hidden');
     user.editForm.classList.remove('hidden');
+    user.editForm.focus();
     user.editUser.style.display = 'none';
     user.saveUser.style.display = 'block';
     user.deleteUser.style.display = 'block';
-    user.editForm.focus();
     const editBtns = document.querySelectorAll('#edit-icon');
     editBtns.forEach(elem => {
         elem.addEventListener('mousedown', () => {
