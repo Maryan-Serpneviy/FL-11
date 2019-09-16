@@ -33,19 +33,20 @@
     </div>
   </div>
   <div id="root">
-    <h1>AJAX app by Maryan</h1>
-    <section id="main">
       <div id="hint">
-        <span class="hint__heading">HINT:
-        click...</span><br>
-        [GET USERS] to download data<br>
-        [USERNAME] to display user's "posts"<br>
-        [PENCIL] to modify record:<br>
-        [DISKETTE] to "update" record on server<br>
-        [TRASHCAN] to "delete" record<br>
+        <span class="hint__heading">
+          HINT: click...</span><br>
+          [GET USERS] to download data<br>
+          [USERNAME] to display user's "posts"<br>
+          [PENCIL] to modify record:<br>
+          [DISKETTE] to "update" record on server<br>
+          [TRASHCAN] to "delete" record<br>
         <span class="hint-hide hint">OK</span>
-      </div>
-      <button id="btn-fetch-data">GET USERS</button>
+    </div>
+    <h1>AJAX app by Maryan</h1>
+    <button id="btn-fetch-data">GET USERS</button>
+    <button id="btn-reload">RELOAD</button>
+    <section id="main">
       <div id="users-list"></div>
       <template id="user-template">
         <div class="user">
@@ -59,14 +60,15 @@
         </div>
       </template>
     </section>
+    <button id="btn-go-back" class="hidden">GO BACK</button>
     <section id="posts">
-      <template id="post-template">
-        <div class="post-container">
-          <div class="user__post">soluta aliquam aperiam consequatur illo quis voluptas</div>
-          <div class="user__comment">qui enim et consequuntur quia animi quis voluptate quibusdam</div>
-        </div>
-      </template>
     </section>
+    <template id="post-template">
+      <div class="post-container">
+        <div class="user__post">soluta aliquam aperiam consequatur illo quis voluptas</div>
+        <div class="user__comment">qui enim et consequuntur quia animi quis voluptate quibusdam</div>
+      </div>
+    </template>
   </div>
   <script src="index.js"></script>
 </body>

@@ -1,4 +1,3 @@
-// hashchange local storage
 // import all modules here
 
 // var a = 1;

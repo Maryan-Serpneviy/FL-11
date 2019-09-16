@@ -1,21 +1,33 @@
 import constants from './constants.js';
+import { fetchData } from './ajax.js';
 
 const rootNode = document.querySelector('#root');
+const btnReload = document.querySelector('#btn-reload');
+const hint = document.querySelector('#hint');
+const hintHide = document.querySelector('.hint-hide');
 
-export const showLoader = () => {
+const getUserPosts = function() {
+    const userId = parseInt(this.parentNode.children[1].textContent);
+    fetchData('posts', userId);
+}
+
+const showLoader = () => {
     document.querySelector('.loader').classList.remove('hidden');
     rootNode.classList.add('hidden');
 };
-export const hideLoader = () => {
+
+const hideLoader = () => {
     document.querySelector('.loader').classList.add('hidden');
     rootNode.classList.remove('hidden');
 };
 
-const hint = document.querySelector('#hint');
-const hintHide = document.querySelector('.hint-hide');
+btnReload.addEventListener('click', () => {
+    location.reload();
+});
+
 hintHide.addEventListener('click', () => {
     hint.style = constants.VANISH;
-})
+});
 
 document.addEventListener('keydown', () => {
     hint.style = constants.VANISH;
@@ -23,4 +35,6 @@ document.addEventListener('keydown', () => {
 
 document.addEventListener('click', () => {
     hint.style = constants.VANISH;
-})
+});
+
+export { getUserPosts, showLoader, hideLoader };

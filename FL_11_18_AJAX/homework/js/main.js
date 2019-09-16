@@ -1,6 +1,7 @@
 import constants from './constants.js';
 import { fetchData } from './ajax.js';
 import { updateHandler } from './handlers.js';
+import { getUserPosts } from './utils.js';
 
 const btnFetchData = document.querySelector('#btn-fetch-data');
 
@@ -64,10 +65,7 @@ const renderUser = user => {
         }
     });
 
-    nodes.userName.addEventListener('click', function() {
-        const userId = parseInt(this.parentNode.children[1].textContent);
-        fetchData('posts', userId);
-    });
+    nodes.userName.addEventListener('click', getUserPosts);
     return userElement;
 };
 

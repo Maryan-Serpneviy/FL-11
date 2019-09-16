@@ -1,23 +1,47 @@
-import { renderMain } from './ajax.js';
+import { fetchData } from './ajax.js';
 
 const rootNode = document.querySelector('#root');
-const main = document.querySelector('#main')
+const main = document.querySelector('#main');
+const getUsers = document.querySelector('#btn-fetch-data');
+const btnReload = document.querySelector('#btn-reload');
+const usersList = document.querySelector('#users-list');
 const posts = document.querySelector('#posts');
+const btnGoBack = rootNode.querySelector('#btn-go-back');
 
 window.addEventListener('hashchange', () => {
     if (location.hash === '#/posts') {
-        localStorage.setItem('main', main.innerHTML); // save main in ls
-        main.innerHTML = ''; // clear main
+        localStorage.setItem('users', usersList.innerHTML); // paste users in ls
+        usersList.innerHTML = ''; // clear users
+        getUsers.classList.add('hidden');
+        btnReload.classList.add('hidden');
+
+        const goBack = document.querySelector('#btn-go-back');
+        goBack.addEventListener('click', () => {
+            posts.innerHTML = '';
+            location.hash = '#/main';
+        });
     } else if (location.hash === '#/main') {
-        posts.innerHTML = ''; // clear posts
-        if (localStorage.getItem('main')) {
-            main.innerHTML = localStorage.getItem('main');
-        }
+        btnGoBack.classList.add('hidden');
+        getUsers.classList.remove('hidden');
+        btnReload.classList.remove('hidden');
+        
+        usersList.innerHTML = localStorage.getItem('users');
         localStorage.clear();
-        document.querySelector('#users-list').innerHTML = '';
-        const btnFetchData = document.querySelector('#btn-fetch-data');
-        btnFetchData.addEventListener('click', renderMain);
-        location.reload();
+
+        main.innerHTML = usersList.innerHTML;
+        posts.innerHTML = ''; // clear posts
+
+        const userNames = main.querySelectorAll('.user__username');
+        userNames.forEach((elem) => {
+            elem.addEventListener('click', function() {
+                const userId = parseInt(this.parentNode.children[1].textContent);
+                fetchData('posts', userId);
+                main.innerHTML = '';
+                location.hash = '#/posts';
+            });
+        })
+
+        
     }
 });
 
@@ -43,8 +67,7 @@ const renderPost = obj => {
 
 const displayPosts = data => {
     data.forEach(elem => posts.appendChild(renderPost(elem)));
-    posts.innerHTML = `<button id="btn-go-back">GO BACK</button>` + posts.innerHTML;
-    const btnGoBack = rootNode.querySelector('#btn-go-back');
+    btnGoBack.classList.remove('hidden');
     btnGoBack.addEventListener('click', () => {
         location.hash = '#/main';
     });
