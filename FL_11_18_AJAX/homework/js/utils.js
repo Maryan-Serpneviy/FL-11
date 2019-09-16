@@ -24,8 +24,3 @@ document.addEventListener('keydown', () => {
 document.addEventListener('click', () => {
     hint.style = constants.VANISH;
 })
-
-const btnReload = document.querySelector('#btn-reload');
-btnReload.addEventListener('click', () => {
-    location.reload();
-});
