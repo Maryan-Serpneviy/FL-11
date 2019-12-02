@@ -4,9 +4,9 @@ import { updateHandler } from './handlers.js';
 import { getUserPosts } from './utils.js';
 
 const btnFetchData = document.querySelector('#btn-fetch-data');
+const usersList = document.querySelector('#users-list');
 
 const displayUsers = users => {
-    const usersList = document.querySelector('#users-list');
     usersList.innerHTML = '';
     users.forEach(elem => usersList.appendChild(renderUser(elem)));
     btnFetchData.removeEventListener('click', fetchData);
